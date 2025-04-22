@@ -19,6 +19,13 @@
        "hp": 30,
        "speed": 7,
        "damage": 10
+   },  
+   {
+       "name": "centaur",
+       "sprite": 21,
+       "hp": 20,
+       "speed": 10,
+       "damage": 12
    }
  
 ]

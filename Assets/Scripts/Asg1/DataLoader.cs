@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Linq;
 
 public class DataLoader : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class DataLoader : MonoBehaviour
 
     public List<Enemy> enemies { get; private set; }
     public List<Level> levels { get; private set; }
+
+    public Enemy FindEnemy(string name) => enemies.Find((Enemy x) => x.name == name);
 
     void Awake()
     {
