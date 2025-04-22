@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -52,8 +53,13 @@ public static class RPNEvaluator
             }
         }
 
-        if (stack.Count != 1)
-            throw new ArgumentException($"Invalid RPN expression: {expression}. Stack contains {stack.Count} elements after evaluation.");
+        if (stack.Count != 1){
+
+            var stackStr = "";
+            foreach(var i in stack.ToList()) stackStr += i.ToString() + " ";
+
+            throw new ArgumentException($"Invalid RPN expression: {expression}. Stack contains {stackStr} elements after evaluation.");
+        }
 
         return stack.Pop();
     }
