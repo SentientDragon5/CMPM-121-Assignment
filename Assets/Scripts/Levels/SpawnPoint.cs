@@ -9,6 +9,8 @@ public class SpawnPoint : MonoBehaviour
 
     public SpawnName kind;
 
+    public string StringName {get => kind.ToString().ToLower();}
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

@@ -12,7 +12,17 @@ public class EnemySpawner : MonoBehaviour
     public Image level_selector;
     public GameObject button;
     public GameObject enemy;
-    public SpawnPoint[] SpawnPoints;    
+    public SpawnPoint[] spawnPoints;
+
+    /// <summary>
+    /// Find the spawn point by the name. This uses the lowercase name of the enum, that should match in levels.json
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public SpawnPoint FindSpawnPoint(string name) => spawnPoints.ToList().Find((SpawnPoint s) => s.StringName == name);
+
+    public int level = 0;
+    public int wave = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,19 +64,39 @@ public class EnemySpawner : MonoBehaviour
         }
         GameManager.Instance.state = GameManager.GameState.INWAVE;
         var levels = DataLoader.Instance.levels;
-        var spawn = levels[0].spawns[0];
-        var skele = DataLoader.Instance.FindEnemy("skeleton");
-        for (int i = 0; i < 10; ++i)
+        var spawns = levels[level].spawns;
+        var skele = DataLoader.Instance.FindEnemy("");
+        for (int s = 0; s < spawns.Count; s++)
         {
-            yield return SpawnEnemy(skele);
+            var spawn = spawns[s];
+            Dictionary<string,int> rpnArgs = new();
+            rpnArgs.Add("wave", wave);
+            
+            int count = spawn.EvalCount(rpnArgs);
+            
+            Enemy enemy = DataLoader.Instance.FindEnemy(spawn.enemy);
+            
+            rpnArgs.Add("base", enemy.hp);
+            int hp = spawn.EvalHp(rpnArgs);
+
+            rpnArgs.Remove("base");
+            rpnArgs.Add("base", enemy.damage);
+            int damage = spawn.EvalDamage(rpnArgs);
+
+            for (int i = 0; i < count; ++i)
+            {                
+                string location = spawn.Locations[ i % spawn.Locations.Count];
+                yield return SpawnEnemy(enemy, location, hp, damage);
+            }
         }
+        
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
     }
 
-    IEnumerator SpawnEnemy(Enemy enemyInfo)
+    IEnumerator SpawnEnemy(Enemy enemyInfo, string location, int? hpOverride=null,int? damageOverride=null)
     {
-        SpawnPoint spawn_point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
+        SpawnPoint spawn_point = location == "random" ? spawnPoints[Random.Range(0, spawnPoints.Length)] : FindSpawnPoint(location);
         Vector2 offset = Random.insideUnitCircle * 1.8f;
                 
         Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
@@ -75,9 +105,9 @@ public class EnemySpawner : MonoBehaviour
 
         new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(enemyInfo.sprite);
         EnemyController en = new_enemy.GetComponent<EnemyController>();
-        en.hp = new Hittable(enemyInfo.hp, Hittable.Team.MONSTERS, new_enemy);
+        en.hp = new Hittable(hpOverride==null ? enemyInfo.hp : (int)hpOverride, Hittable.Team.MONSTERS, new_enemy);
         en.speed = enemyInfo.speed;
-        en.damage = enemyInfo.damage;
+        en.damage = damageOverride ==null? enemyInfo.damage : (int)damageOverride;
         GameManager.Instance.AddEnemy(new_enemy);
         yield return new WaitForSeconds(0.5f);
     }

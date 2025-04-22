@@ -2,8 +2,20 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RPNEvaluator
+/// <summary>
+/// this is a static class that implements a reverse polish notation calculator.
+/// use this with "using static RPNEvaluator" in the header of your file.
+/// Then use any of the methods, or just use RPNEvaluator.Evaluate(...)
+/// </summary>
+public static class RPNEvaluator
 {
+    /// <summary>
+    /// This evaluates a reverse polish notation.
+    /// </summary>
+    /// <param name="expression"></param>
+    /// <param name="variables"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public static int Evaluate(string expression, Dictionary<string, int> variables = null)
     {
         if (string.IsNullOrEmpty(expression))
