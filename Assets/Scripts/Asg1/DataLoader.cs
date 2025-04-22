@@ -26,6 +26,7 @@ public class DataLoader : MonoBehaviour
     public List<Level> levels { get; private set; }
 
     public Enemy FindEnemy(string name) => enemies.Find((Enemy x) => x.name == name);
+    public int FindLevelIndex(string name) => levels.FindIndex((Level x) => x.name == name);
 
     void Awake()
     {

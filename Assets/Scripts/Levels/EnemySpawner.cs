@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
+using NUnit.Framework.Constraints;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -27,11 +28,16 @@ public class EnemySpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameObject selector = Instantiate(button, level_selector.transform);
-        selector.transform.localPosition = new Vector3(0, 130);
-        selector.GetComponent<MenuSelectorController>().spawner = this;
-        selector.GetComponent<MenuSelectorController>().SetLevel("Start");
-        selector.AddComponent<SelectDefaultUI>();
+        var levels = DataLoader.Instance.levels;
+        var yPos = 130;
+        foreach (var level in levels)
+        {
+            GameObject selector = Instantiate(button, level_selector.transform);
+            selector.transform.localPosition = new Vector3(0, yPos);
+            yPos -= 50;
+            selector.GetComponent<MenuSelectorController>().spawner = this;
+            selector.GetComponent<MenuSelectorController>().SetLevel(level.name);
+        }
     }
 
     // Update is called once per frame
@@ -45,6 +51,7 @@ public class EnemySpawner : MonoBehaviour
         level_selector.gameObject.SetActive(false);
         // this is not nice: we should not have to be required to tell the player directly that the level is starting
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
+        level = DataLoader.Instance.FindLevelIndex(levelname);
         StartCoroutine(SpawnWave());
     }
 
