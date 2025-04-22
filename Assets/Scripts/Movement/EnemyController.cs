@@ -38,6 +38,9 @@ public class EnemyController : MonoBehaviour
         if (last_attack + 2 < Time.time)
         {
             last_attack = Time.time;
+            Debug.Assert(target.gameObject.GetComponent<PlayerController>() != null);
+            Debug.Assert(target.gameObject.GetComponent<PlayerController>().hp != null);
+
             target.gameObject.GetComponent<PlayerController>().hp.Damage(new Damage(damage, Damage.Type.PHYSICAL));
         }
     }

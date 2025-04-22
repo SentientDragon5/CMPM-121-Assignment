@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
-using NUnit.Framework.Constraints;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject button;
     public GameObject enemy;
     public SpawnPoint[] spawnPoints;
+    public Transform enemyParent;
 
     /// <summary>
     /// Find the spawn point by the name. This uses the lowercase name of the enum, that should match in levels.json
@@ -119,7 +119,7 @@ public class EnemySpawner : MonoBehaviour
         Vector2 offset = Random.insideUnitCircle * 1.8f;
                 
         Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
-        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity);
+        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity, enemyParent);
         new_enemy.name = "Enemy ("+ enemyInfo.name +")";
 
         new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(enemyInfo.sprite);
