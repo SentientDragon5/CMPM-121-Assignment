@@ -51,6 +51,10 @@ public static class RPNEvaluator
             {
                 throw new ArgumentException($"Invalid token in RPN expression: {token}");
             }
+            
+            var stackStr = "";
+            foreach(var i in stack.ToList()) stackStr += i.ToString() + " ";
+            //Debug.Log(stackStr);
         }
 
         if (stack.Count != 1){
