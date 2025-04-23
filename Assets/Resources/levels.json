@@ -27,6 +27,14 @@
             {
                 "enemy": "centaur",
                 "count": "wave"
+            },
+            {
+                "enemy": "knight",
+                "count": "wave 4 / 1 wave 4 % - *",
+                "hp": "base 10 wave * +",
+                "damage": "base",
+                "sequence": [1],
+                "location": "random"
             }
         ]
    },
@@ -59,6 +67,14 @@
             {
                 "enemy": "centaur",
                 "count": "wave"
+            },
+            {
+                "enemy": "knight",
+                "count": "wave 3 / 1 wave 3 % - *",
+                "hp": "base 15 wave * +",
+                "damage": "base 5 +",
+                "sequence": [1, 2],
+                "location": "random"
             }
         ]
    },
@@ -90,7 +106,15 @@
             {
                 "enemy": "centaur",
                 "count": "wave"
-            }       
+            },
+            {
+                "enemy": "knight",
+                "count": "wave 8 / 2 +",
+                "hp": "base 20 wave * +",
+                "damage": "base 10 +",
+                "sequence": [1, 1, 2],
+                "location": "random"
+            }    
         ]
    }
 ]

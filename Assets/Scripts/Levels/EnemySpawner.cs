@@ -57,6 +57,19 @@ public class EnemySpawner : MonoBehaviour
 
     public void NextWave()
     {
+        wave++;
+        
+        if (DataLoader.Instance.levels[level].waves.HasValue && 
+            wave > DataLoader.Instance.levels[level].waves.Value)
+        {
+            // Can only win in non endless mode
+            if (DataLoader.Instance.levels[level].name != "Endless")
+            {
+                GameManager.Instance.Victory();
+                return;
+            }
+        }
+        
         StartCoroutine(SpawnWave());
     }
 
@@ -65,6 +78,9 @@ public class EnemySpawner : MonoBehaviour
     {
         GameManager.Instance.state = GameManager.GameState.COUNTDOWN;
         GameManager.Instance.countdown = 3;
+        GameManager.Instance.waveStartTime = Time.time;
+        GameManager.Instance.totalDamageDealt = 0;
+        GameManager.Instance.totalDamageTaken = 0;
         for (int i = 3; i > 0; i--)
         {
             yield return new WaitForSeconds(1);
@@ -103,7 +119,9 @@ public class EnemySpawner : MonoBehaviour
             {                
                 string location = spawn.Locations[ i % spawn.Locations.Count];
 
-                yield return SpawnEnemy(enemy, location, delays[i], hp, damage);
+                bool delayed = delays[i % delays.Count];
+
+                yield return SpawnEnemy(enemy, location, delayed, hp, damage);
             }
         }
         

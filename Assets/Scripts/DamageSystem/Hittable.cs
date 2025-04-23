@@ -14,6 +14,11 @@ public class Hittable
 
     public void Damage(Damage damage)
     {
+        if (this.team == Team.PLAYER)
+        {
+            GameManager.Instance.totalDamageTaken += damage.amount;
+        }
+        
         EventBus.Instance.DoDamage(owner.transform.position, damage, this);
         hp -= damage.amount;
         if (hp <= 0)

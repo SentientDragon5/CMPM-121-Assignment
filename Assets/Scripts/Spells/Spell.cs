@@ -55,7 +55,10 @@ public class Spell
     {
         if (other.team != team)
         {
-            other.Damage(new Damage(GetDamage(), Damage.Type.ARCANE));
+            int damage = GetDamage();
+            other.Damage(new Damage(damage, Damage.Type.ARCANE));
+
+            GameManager.Instance.totalDamageDealt += damage;
         }
 
     }

@@ -22,7 +22,7 @@ public class Spawn
     public int EvalSpeed( Dictionary<string, int> variables = null) => speed == "" ? variables["base"] : Evaluate(speed, variables);
 
     public string damage;
-    public int EvalDamage( Dictionary<string, int> variables = null) => damage == "" ? variables["base"] :  Evaluate(damage, variables);
+    public int EvalDamage( Dictionary<string, int> variables = null) => string.IsNullOrEmpty(damage) ? variables["base"] : Evaluate(damage, variables);
     public string delay = "2";
     public int EvalDelay( Dictionary<string, int> variables = null) => delay == "" ? 2 : Evaluate(delay, variables);
 

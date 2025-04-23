@@ -11,7 +11,8 @@ public class GameManager
         INWAVE,
         WAVEEND,
         COUNTDOWN,
-        GAMEOVER
+        GAMEOVER,
+        VICTORY
     }
     public GameState state;
 
@@ -36,6 +37,10 @@ public class GameManager
     private List<GameObject> enemies;
     public int enemy_count { get { return enemies.Count; } }
 
+    public float waveStartTime;
+    public int totalDamageDealt;
+    public int totalDamageTaken;
+
     public void AddEnemy(GameObject enemy)
     {
         enemies.Add(enemy);
@@ -55,5 +60,49 @@ public class GameManager
     private GameManager()
     {
         enemies = new List<GameObject>();
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over!");
+        state = GameState.GAMEOVER;
+        
+        // Disable player controls
+        if (player != null)
+        {
+            PlayerController controller = player.GetComponent<PlayerController>();
+            if (controller != null)
+            {
+                controller.enabled = false;
+            }
+        }
+    }
+
+    public void Victory()
+    {
+        Debug.Log("Victory!");
+        state = GameState.VICTORY;
+        
+        if (player != null)
+        {
+            PlayerController controller = player.GetComponent<PlayerController>();
+            if (controller != null)
+            {
+                controller.enabled = false;
+            }
+        }
+    }
+    
+    public void Reset()
+    {
+        foreach (GameObject enemy in new List<GameObject>(enemies))
+        {
+            GameObject.Destroy(enemy);
+        }
+        enemies.Clear();
+        
+        state = GameState.PREGAME;
+        totalDamageDealt = 0;
+        totalDamageTaken = 0;
     }
 }
