@@ -129,7 +129,6 @@ public class EnemySpawner : MonoBehaviour
         en.damage = damageOverride ==null? enemyInfo.damage : (int)damageOverride;
         GameManager.Instance.AddEnemy(new_enemy);
 
-        Debug.Log(delayed);
         if (delayed)
             yield return new WaitForSeconds(spawnDelay);
         else
