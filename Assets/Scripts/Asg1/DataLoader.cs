@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Linq;
 
 public class DataLoader : MonoBehaviour
@@ -25,6 +26,8 @@ public class DataLoader : MonoBehaviour
     public List<Enemy> enemies { get; private set; }
     public List<Level> levels { get; private set; }
 
+    public JObject spells {get; private set; }
+
     public Enemy FindEnemy(string name) => enemies.Find((Enemy x) => x.name == name);
     public int FindLevelIndex(string name) => levels.FindIndex((Level x) => x.name == name);
 
@@ -46,8 +49,9 @@ public class DataLoader : MonoBehaviour
     {
         TextAsset enemiesJson = Resources.Load<TextAsset>("enemies");
         TextAsset levelsJson = Resources.Load<TextAsset>("levels");
+        TextAsset spellsJson = Resources.Load<TextAsset>("spells");
         
-        if (enemiesJson == null || levelsJson == null)
+        if (enemiesJson == null || levelsJson == null || spellsJson == null)
         {
             Debug.LogError("JSON files not found in Resources folder!");
             return;
@@ -55,6 +59,8 @@ public class DataLoader : MonoBehaviour
 
         enemies = JsonConvert.DeserializeObject<List<Enemy>>(enemiesJson.text);
         levels = JsonConvert.DeserializeObject<List<Level>>(levelsJson.text);
+        spells = JObject.Parse(spellsJson.text);
+        
         
         Debug.Log($"Loaded {enemies.Count} enemies and {levels.Count} levels");
     }
