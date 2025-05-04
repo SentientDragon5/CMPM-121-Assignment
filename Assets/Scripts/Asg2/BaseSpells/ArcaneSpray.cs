@@ -1,4 +1,3 @@
-// Create a new file called ArcaneSpray.cs
 using UnityEngine;
 using System.Collections;
 using Newtonsoft.Json.Linq;

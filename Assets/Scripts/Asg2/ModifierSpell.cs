@@ -24,7 +24,7 @@ public abstract class ModifierSpell : Spell {
     public override string GetName() => baseSpell.GetName();
     public override int GetIcon() => baseSpell.GetIcon();
     
-    // These are now handled by the ValueModifier system
+    // handled by ValueModifier system
     public override int GetManaCost() => baseSpell.GetManaCost();
     public override int GetDamage() => baseSpell.GetDamage();
     public override float GetCooldown() => baseSpell.GetCooldown();
@@ -33,7 +33,7 @@ public abstract class ModifierSpell : Spell {
     
     public override bool IsReady() => baseSpell.IsReady();
 
-    // Delegate the Cast operation to the base spell
+    // Cast operation to the base spell for specific logic
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         // Apply our modifiers before casting

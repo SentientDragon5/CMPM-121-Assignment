@@ -56,14 +56,11 @@ public class SpellBuilder
         Debug.Log($"Loaded {baseSpellKeys.Count} base spells and {modifierSpellKeys.Count} modifier spells");
     }
     
-    public Spell Build(SpellCaster owner)
-    {
-        // This is the compatibility method for the original SpellBuilder
-        // Just return an ArcaneBolt for now
-        return BuildSpell("arcane_bolt", owner);
-    }
+    // public Spell Build(SpellCaster owner)
+    // {
+    //     return BuildSpell("arcane_bolt", owner);
+    // }
     
-    // Build a spell from a specific key
     public Spell BuildSpell(string key, SpellCaster owner)
     {
         if (!spellDefinitions.ContainsKey(key))
@@ -74,35 +71,32 @@ public class SpellBuilder
         
         JObject spellObj = spellDefinitions[key];
         
-        // Check if it's a modifier spell
         if (modifierSpellKeys.Contains(key))
         {
             Debug.LogError($"Cannot build a modifier spell directly: {key}");
-            return new ArcaneBolt(owner); // Fallback
+            return new ArcaneBolt(owner);
         }
         
-        // Create the base spell based on the key
         Spell spell = CreateSpellInstance(key, owner);
         
-        // Set attributes from JSON
         if (spell != null)
         {
             spell.SetAttributesFromJson(spellObj);
             Debug.Log($"Created spell: {spell.GetName()} with damage: {spell.GetDamage()}");
         }
         
-        return spell ?? new ArcaneBolt(owner); // Fallback if creation failed
+        return spell ?? new ArcaneBolt(owner); 
     }
-    
-    // Build a random spell (possibly with modifiers)
+
+    //  random spell (possibly with modifiers)
     public Spell BuildRandomSpell(SpellCaster owner)
     {
         // Choose a random base spell
         string baseSpellKey = baseSpellKeys[random.Next(baseSpellKeys.Count)];
         Spell baseSpell = BuildSpell(baseSpellKey, owner);
         
-        // Decide how many modifiers to apply (0-3)
-        int numModifiers = random.Next(4); // 0 to 3 modifiers
+        // Decide how many modifiers to apply 
+        int numModifiers = random.Next(4); 
         
         // Apply modifiers
         Spell result = baseSpell;
@@ -118,7 +112,6 @@ public class SpellBuilder
         return result;
     }
     
-    // Apply a modifier to a spell
     private Spell ApplyModifier(string modifierKey, Spell baseSpell, SpellCaster owner)
     {
         if (!spellDefinitions.ContainsKey(modifierKey))
@@ -129,10 +122,8 @@ public class SpellBuilder
         
         JObject modifierObj = spellDefinitions[modifierKey];
         
-        // Create the modifier instance
         Spell modifierSpell = CreateModifierInstance(modifierKey, baseSpell, owner);
         
-        // Set attributes from JSON
         if (modifierSpell != null)
         {
             modifierSpell.SetAttributesFromJson(modifierObj);
@@ -141,16 +132,21 @@ public class SpellBuilder
         return modifierSpell ?? baseSpell;
     }
     
-    // Create a spell instance based on the key
     private Spell CreateSpellInstance(string key, SpellCaster owner)
     {
-        // Map spell keys to their class implementations
+        // add new spells here
         switch (key.ToLower())
         {
             case "arcane_bolt":
                 return new ArcaneBolt(owner);
             case "arcane_spray":
                 return new ArcaneSpray(owner);
+            case "magic_missile":
+                return new MagicMissile(owner);
+            case "arcane_blast":
+                return new ArcaneBlast(owner);
+            case "chain_lightning":
+                return new ChainLightning(owner);
             default:
                 Debug.LogError($"Unknown base spell key: {key}");
                 return new ArcaneBolt(owner); // currently working spell
@@ -160,7 +156,7 @@ public class SpellBuilder
     // Create a modifier instance based on the key
     private Spell CreateModifierInstance(string key, Spell baseSpell, SpellCaster owner)
     {
-        // You'll implement this later when you add modifier spells
+        // implement modifier creation logic here
         Debug.LogError($"Modifier spells not implemented yet: {key}");
         return null;
     }

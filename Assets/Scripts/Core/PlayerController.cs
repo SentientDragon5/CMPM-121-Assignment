@@ -38,12 +38,15 @@ public class PlayerController : MonoBehaviour
         SpellBuilder spellBuilder = new SpellBuilder();
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_bolt", spellcaster));
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_spray", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_blast", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("chain_lightning", spellcaster));
 
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.activeSpell);
 
-        Debug.Log("Started level with 2 spells. Press 1-2 to switch between them.");
+        Debug.Log("Started level with 5 spells. Press 1-5 to switch between them.");
 
     }
 
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // testing purposes
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i) && 
                 spellcaster.equippedSpells.Count > i)

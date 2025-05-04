@@ -13,7 +13,7 @@ public class SpellCaster
     public int activeSpellIndex;
     public Spell activeSpell => equippedSpells.Count > activeSpellIndex ? equippedSpells[activeSpellIndex] : null; // returns the current active spell
 
-    public const int MAX_EQUIPPED_SPELLS = 4;
+    public const int MAX_EQUIPPED_SPELLS = 5;
 
 
     public IEnumerator ManaRegeneration()

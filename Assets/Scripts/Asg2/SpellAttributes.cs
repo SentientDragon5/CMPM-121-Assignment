@@ -22,6 +22,9 @@ public class SpellAttributes
     public int? numProjectiles;
     public float? spray;  // For ArcaneSpray
     public float? lifetime; // For projectile lifetime
+    public int? chainCount;  // Number of chain jumps
+    public float? chainDamageDecay; // Damage reduction per chain
+    public float? chainRange; // Maximum range for chaining
     
     // Modifiers for various properties
     public List<ValueModifier> damageModifiers = new List<ValueModifier>();

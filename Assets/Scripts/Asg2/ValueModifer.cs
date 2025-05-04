@@ -34,8 +34,9 @@ public class ValueModifier
     public static float ApplyModifiers(float baseValue, List<ValueModifier> modifiers)
     {
         if (modifiers == null || modifiers.Count == 0)
+        {
             return baseValue;
-
+        }
         float result = baseValue;
         foreach (var modifier in modifiers)
         {

@@ -40,6 +40,18 @@
        "cooldown": "0.5",
        "projectile": {"trajectory": "straight", "speed": "8", "sprite": 0, "lifetime": "0.1 power 100 / +"}
    },
+   "chain_lightning": {
+        "name": "Chain Lightning",
+        "description": "A bolt of lightning that jumps between enemies, dealing less damage with each jump.",
+        "icon": 6,
+        "damage": {"amount": "30 power 5 / +", "type": "arcane"},
+        "mana_cost": "35",
+        "cooldown": "4",
+        "chain_count": "3",
+        "chain_damage_decay": "0.7",
+        "chain_range": "5",
+    "projectile": {"trajectory": "straight", "speed": "22", "sprite": 0}
+    },
    "damage_amp": {
        "name": "damage-amplified",
        "description": "Increased damage and increased mana cost.",
