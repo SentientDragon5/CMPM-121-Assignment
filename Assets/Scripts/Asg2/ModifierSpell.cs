@@ -1,27 +1,54 @@
 
 using System.Collections;
 using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 
 [System.Serializable]
-public class ModifierSpell : Spell {
-    public Spell child;
+public abstract class ModifierSpell : Spell {
+    protected Spell baseSpell;
 
-    public ModifierSpell(Spell child, SpellCaster owner) : base(owner)
+    public ModifierSpell(Spell baseSpell, SpellCaster owner) : base(owner)
     {
-        this.child = child;
+        this.baseSpell = baseSpell;
+    }
+
+    protected override void InitializeAttributes()
+    {
+        attributes = new SpellAttributes();
     }
     
-    public override string GetName() => child.GetName();
-    public override int GetManaCost() => child.GetManaCost();
-    public override int GetDamage() => child.GetDamage();
-    public override float GetCooldown() => child.GetCooldown();
-    public override int GetIcon() => child.GetIcon();
-    public override float GetSpeed() => child.GetSpeed();
-    public override bool IsReady() => child.IsReady();
-    public override string GetTrajectory() => child.GetTrajectory();
+    // Apply modifiers to the base spell's attributes
+    protected abstract void ApplyModifiers();
+    
+    public override string GetName() => baseSpell.GetName();
+    public override int GetIcon() => baseSpell.GetIcon();
+    
+    // These are now handled by the ValueModifier system
+    public override int GetManaCost() => baseSpell.GetManaCost();
+    public override int GetDamage() => baseSpell.GetDamage();
+    public override float GetCooldown() => baseSpell.GetCooldown();
+    public override float GetSpeed() => baseSpell.GetSpeed();
+    public override string GetTrajectory() => baseSpell.GetTrajectory();
+    
+    public override bool IsReady() => baseSpell.IsReady();
 
+    // Delegate the Cast operation to the base spell
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
-    => child.Cast(where,target,team);
+    {
+        // Apply our modifiers before casting
+        ApplyModifiers();
+        
+        // Then let the base spell handle the actual casting
+        last_cast = Time.time;
+        yield return baseSpell.Cast(where, target, team);
+    }
+    
+    // Override SetAttributesFromJson to set both our attributes and apply them to the base spell
+    public override void SetAttributesFromJson(JObject jObject)
+    {
+        base.SetAttributesFromJson(jObject);
+        ApplyModifiers();
+    }
 
 }

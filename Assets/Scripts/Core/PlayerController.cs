@@ -34,16 +34,38 @@ public class PlayerController : MonoBehaviour
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
-        // tell UI elements what to show
+        // Add new spells here
+        SpellBuilder spellBuilder = new SpellBuilder();
+        spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_bolt", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_spray", spellcaster));
+
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
-        spellui.SetSpell(spellcaster.spell);
+        spellui.SetSpell(spellcaster.activeSpell);
+
+        Debug.Log("Started level with 2 spells. Press 1-2 to switch between them.");
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // testing purposes
+        for (int i = 0; i < 4; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i) && 
+                spellcaster.equippedSpells.Count > i)
+            {
+                spellcaster.SelectSpell(i);
+                Debug.Log($"Switched to spell: {spellcaster.activeSpell.GetName()}");
+                
+                // Update UI if using the old UI system
+                if (spellui != null)
+                {
+                    spellui.SetSpell(spellcaster.activeSpell);
+                }
+            }
+        }
     }
 
     void OnAttack(InputValue value)

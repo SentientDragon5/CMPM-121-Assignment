@@ -7,8 +7,14 @@ public class SpellCaster
     public int mana;
     public int max_mana;
     public int mana_reg;
+    public int spellPower;
     public Hittable.Team team;
-    public Spell spell;
+    public List<Spell> equippedSpells;
+    public int activeSpellIndex;
+    public Spell activeSpell => equippedSpells.Count > activeSpellIndex ? equippedSpells[activeSpellIndex] : null; // returns the current active spell
+
+    public const int MAX_EQUIPPED_SPELLS = 4;
+
 
     public IEnumerator ManaRegeneration()
     {
@@ -26,15 +32,53 @@ public class SpellCaster
         this.max_mana = mana;
         this.mana_reg = mana_reg;
         this.team = team;
-        spell = new SpellBuilder().Build(this);
+        this.spellPower = 10; 
+        equippedSpells = new List<Spell>();
+        activeSpellIndex = 0;
+    }
+
+    public void SetSpellPower(int power)
+    {
+        this.spellPower = power;
+    }
+    
+    public bool AddSpell(Spell spell)
+    {
+        if (equippedSpells.Count < MAX_EQUIPPED_SPELLS)
+        {
+            equippedSpells.Add(spell);
+            return true;
+        }
+        return false;
+    }
+    
+    public void RemoveSpell(int index)
+    {
+        if (index >= 0 && index < equippedSpells.Count)
+        {
+            equippedSpells.RemoveAt(index);
+            
+            if (activeSpellIndex >= equippedSpells.Count)
+            {
+                activeSpellIndex = Mathf.Max(0, equippedSpells.Count - 1);
+            }
+        }
+    }
+    
+    public void SelectSpell(int index)
+    {
+        if (index >= 0 && index < equippedSpells.Count)
+        {
+            activeSpellIndex = index;
+        }
     }
 
     public IEnumerator Cast(Vector3 where, Vector3 target)
     {        
-        if (mana >= spell.GetManaCost() && spell.IsReady())
+        if (activeSpell != null && mana >= activeSpell.GetManaCost() && activeSpell.IsReady())
         {
-            mana -= spell.GetManaCost();
-            yield return spell.Cast(where, target, team);
+            mana -= activeSpell.GetManaCost();
+            yield return activeSpell.Cast(where, target, team);
         }
         yield break;
     }
