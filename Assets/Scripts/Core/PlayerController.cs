@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public ManaBar manaui;
 
     public SpellCaster spellcaster;
-    public SpellUI spellui;
+    public List<SpellUI> spellui;
 
     public int speed;
 
@@ -40,14 +41,56 @@ public class PlayerController : MonoBehaviour
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_spray", spellcaster));
         spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_blast", spellcaster));
-        spellcaster.AddSpell(spellBuilder.BuildSpell("chain_lightning", spellcaster));
 
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
-        spellui.SetSpell(spellcaster.activeSpell);
+        RefreshSpellUI();
 
         Debug.Log("Started level with 5 spells. Press 1-5 to switch between them.");
 
+    }
+
+
+    public UnityEvent onDropSpell = new();
+    public bool CanCarryMoreSpells {get => spellcaster.equippedSpells.Count < 4;}
+    void RefreshSpellUI(){
+
+        var spells = spellcaster.equippedSpells;
+        int i=0;
+        for (i = 0; i < spells.Count; i++)
+        {
+            spellui[i].gameObject.SetActive(true);
+            spellui[i].SetSpell(spells[i]);
+            if(spells.Count == 1)
+                spellui[i].dropbutton.SetActive(false);
+            else
+                spellui[i].dropbutton.SetActive(true);
+        }
+        for (; i < 4; i++)
+        {        
+            spellui[i].gameObject.SetActive(false);
+        }
+    }
+
+
+    private Spell reward;
+    public Spell Reward {get => reward;}
+    public void RollReward(){
+        reward = GameManager.Instance.spellBuilder.BuildRandomSpell(spellcaster);
+    }
+    public void ClaimReward(){
+        if (CanCarryMoreSpells)
+            AddSpell(reward);
+    }
+
+    public void AddSpell(Spell spell){
+        spellcaster.AddSpell(spell);
+        RefreshSpellUI();
+    }
+    public void DropSpell(int i){
+        spellcaster.RemoveSpell(i);
+        RefreshSpellUI();
+        onDropSpell.Invoke();
     }
 
     // Update is called once per frame
@@ -62,11 +105,6 @@ public class PlayerController : MonoBehaviour
                 spellcaster.SelectSpell(i);
                 Debug.Log($"Switched to spell: {spellcaster.activeSpell.GetName()}");
                 
-                // Update UI if using the old UI system
-                if (spellui != null)
-                {
-                    spellui.SetSpell(spellcaster.activeSpell);
-                }
             }
         }
     }

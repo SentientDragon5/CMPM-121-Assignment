@@ -33,6 +33,7 @@ public class GameManager
     public EnemySpriteManager enemySpriteManager;
     public PlayerSpriteManager playerSpriteManager;
     public RelicIconManager relicIconManager;
+    public SpellBuilder spellBuilder;
 
     private List<GameObject> enemies;
     public int enemy_count { get { return enemies.Count; } }
@@ -60,6 +61,7 @@ public class GameManager
     private GameManager()
     {
         enemies = new List<GameObject>();
+        spellBuilder = new();
     }
 
     public void GameOver()

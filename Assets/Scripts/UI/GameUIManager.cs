@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class GameUIManager : MonoBehaviour
         }
     }
     
+    public SpellUI reward;
+    public Button acceptReward;
     void HandleWaveEnd()
     {
         if (!rewardUI.activeSelf)
@@ -58,12 +61,19 @@ public class GameUIManager : MonoBehaviour
             rewardUI.SetActive(true);
             float waveDuration = Time.time - GameManager.Instance.waveStartTime;
             
+            var pc = GameManager.Instance.player.GetComponent<PlayerController>();
+            pc.RollReward();
+            reward.SetSpell(pc.Reward);
+            acceptReward.interactable = pc.CanCarryMoreSpells;
+            pc.onDropSpell.AddListener(() => acceptReward.interactable = true);
+
             if (rewardStatsText != null)
             {
                 rewardStatsText.text = $"Wave Complete!\n" +
                                $"Time: {waveDuration:F1} seconds\n" +
                                $"Damage Dealt: {GameManager.Instance.totalDamageDealt}\n" +
-                               $"Damage Taken: {GameManager.Instance.totalDamageTaken}\n";
+                               $"Damage Taken: {GameManager.Instance.totalDamageTaken}\n" +
+                               "Claim your Reward:";
             }
         }
     }
@@ -124,7 +134,7 @@ public class GameUIManager : MonoBehaviour
         spawner.wave = 0;
         spawner.level_selector.gameObject.SetActive(true);
 
-        Unit[] allUnits = FindObjectsOfType<Unit>();
+        Unit[] allUnits = FindObjectsByType<Unit>(FindObjectsSortMode.None);
         foreach (Unit unit in allUnits)
         {
             if (unit.gameObject == GameManager.Instance.player)
