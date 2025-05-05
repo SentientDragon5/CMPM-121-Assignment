@@ -88,6 +88,20 @@
        "damage_multiplier": "0.75",
        "mana_adder": "10",
        "projectile_trajectory": "homing"
-   }
+   },
+    "rapid": {
+        "name":"rapid",
+        "description" : "Decreased cooldown, but slightly increases mana consumtion.",
+        "mana_multiplier" : "1.25",
+        "cooldown_multiplier":"0.5"
+    },
+    "ultimate":{
+        "name":"ultimate",
+        "description" : "upgrades all aspects of the spell slightly.",
+        "mana_multiplier" : "0.8",
+        "cooldown_multiplier":"0.8",
+        "damage_multiplier":"1.2",
+        "speed_multiplier":"1.2"
+    }
 
 }
