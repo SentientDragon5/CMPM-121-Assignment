@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    void Die()
+    public void Die()
     {
         if (!dead)
         {

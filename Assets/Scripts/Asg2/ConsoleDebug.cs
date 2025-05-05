@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class ConsoleDebug : MonoBehaviour
 {
@@ -57,19 +58,30 @@ public class ConsoleDebug : MonoBehaviour
         }
     }
 
-    // Example command method
-    private void TestCommand()
+    private void Test()
     {
         Debug.Log("TestCommand executed!");
     }
 
-    private void KillAllEnemies()
+    private void KillAll()
     {
-        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (var enemy in enemies)
+        EnemyController[] enemies = Object.FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+        foreach (EnemyController enemy in enemies)
         {
-            Destroy(enemy);
+            enemy.Die();
         }
         Debug.Log("All enemies have been killed.");
     }
+    private void FullHeal(){
+        var hittable = GameManager.Instance.player.GetComponent<PlayerController>().hp;
+        hittable.hp = hittable.max_hp;
+    }
+    public void Invincible(){
+        var hittable = GameManager.Instance.player.GetComponent<PlayerController>().hp;
+        hittable.SetMaxHP(100000000);
+        hittable.hp = hittable.max_hp;
+    }
+    private void ka() => KillAll();
+    private void fh() => FullHeal();
+    private void i() => Invincible();
 }

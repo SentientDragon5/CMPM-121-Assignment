@@ -65,6 +65,7 @@ public class GameUIManager : MonoBehaviour
             pc.RollReward();
             reward.SetSpell(pc.Reward);
             acceptReward.interactable = pc.CanCarryMoreSpells;
+            acceptReward.gameObject.SetActive(true);
             pc.onDropSpell.AddListener(() => acceptReward.interactable = true);
 
             if (rewardStatsText != null)
