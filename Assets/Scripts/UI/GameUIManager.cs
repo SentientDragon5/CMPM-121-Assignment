@@ -54,6 +54,7 @@ public class GameUIManager : MonoBehaviour
     
     public SpellUI reward;
     public Button acceptReward;
+    public TextMeshProUGUI rewardText;
     void HandleWaveEnd()
     {
         if (!rewardUI.activeSelf)
@@ -66,6 +67,7 @@ public class GameUIManager : MonoBehaviour
             reward.SetSpell(pc.Reward);
             acceptReward.interactable = pc.CanCarryMoreSpells;
             acceptReward.gameObject.SetActive(true);
+            rewardText.text = pc.Reward.GetName() + "\n" + pc.Reward.GetDescription();
             pc.onDropSpell.AddListener(() => acceptReward.interactable = true);
 
             if (rewardStatsText != null)

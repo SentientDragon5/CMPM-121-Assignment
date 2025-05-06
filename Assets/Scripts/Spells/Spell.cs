@@ -24,6 +24,10 @@ public abstract class Spell
     {
         return attributes.name;
     }
+    public virtual string GetDescription()
+    {
+        return attributes.description;
+    }
 
     public virtual int GetManaCost()
     {
