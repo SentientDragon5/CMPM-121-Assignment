@@ -42,7 +42,7 @@ public class SpellBuilder
                 
                 // Determine if it's a base spell or a modifier based on name pattern
                 if (key == "damage_amp" || key == "speed_amp" || key == "doubler" || 
-                    key == "splitter" || key == "chaos" || key == "homing")
+                    key == "splitter" || key == "chaos" || key == "homing" || key=="rapid" || key=="huge")
                 {
                     modifierSpellKeys.Add(key);
                 }
@@ -170,7 +170,10 @@ public class SpellBuilder
                 return new SpeedModifier(baseSpell, owner);
             case "homing":
                 return new HomingModifier(baseSpell, owner);
-            // Add other modifiers as you implement them
+            case "rapid":
+                return new RapidModifier(baseSpell, owner);
+            case "huge":
+                return new HugeModifier(baseSpell, owner);
             default:
                 Debug.LogError($"Unknown modifier key: {key}");
                 return baseSpell; 

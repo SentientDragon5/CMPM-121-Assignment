@@ -25,7 +25,9 @@ public class ChainLightning : Spell
             where,
             target - where,
             GetSpeed(),
-            (hit, pos) => OnInitialHit(hit, pos)
+            (hit, pos) => OnInitialHit(hit, pos),
+            lifetime,
+            GetSize()
         );
         
         yield return new WaitForEndOfFrame();

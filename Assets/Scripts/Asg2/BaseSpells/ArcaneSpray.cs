@@ -47,7 +47,8 @@ public class ArcaneSpray : Spell
                 projectileDirection,
                 GetSpeed(),
                 OnHit,
-                lifetime
+                lifetime,//local var
+                GetSize()
             );
             
             // Small delay between projectiles for a more natural spray effect

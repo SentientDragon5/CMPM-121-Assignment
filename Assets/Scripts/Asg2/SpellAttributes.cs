@@ -15,6 +15,7 @@ public class SpellAttributes
     public float cooldown;
     public float speed;
     public string trajectory = "straight";
+    public float size = 0.7f;
     public int projectileSprite = 0;
     
     // Optional properties
@@ -33,7 +34,8 @@ public class SpellAttributes
     public List<ValueModifier> speedModifiers = new List<ValueModifier>();
     public List<ValueModifier> secondaryDamageModifiers = new List<ValueModifier>();
     public List<ValueModifier> numProjectilesModifiers = new List<ValueModifier>();
-    
+    public List<ValueModifier> sizeModifiers = new List<ValueModifier>();
+
     public int GetFinalDamage(int spellPower)
     {
         int baseDamage = damage * spellPower / 10;
@@ -53,6 +55,10 @@ public class SpellAttributes
     public float GetFinalSpeed()
     {
         return ValueModifier.ApplyModifiers(speed, speedModifiers);
+    }
+    public float GetFinalSize()
+    {
+        return ValueModifier.ApplyModifiers(size, sizeModifiers);
     }
     
     public int GetFinalSecondaryDamage(int spellPower)

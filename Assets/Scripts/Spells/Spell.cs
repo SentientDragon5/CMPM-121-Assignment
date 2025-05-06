@@ -10,6 +10,8 @@ public abstract class Spell
     public Hittable.Team team;
     protected SpellAttributes attributes;
 
+    // default lifetime. overriden in other spells.
+    public float lifetime = 20f;
 
     public Spell(SpellCaster owner)
     {
@@ -58,6 +60,10 @@ public abstract class Spell
     {
         return attributes.trajectory;
     }
+    public virtual float GetSize()
+    {
+        return attributes.GetFinalSize();
+    }
 
     public virtual bool IsReady()
     {
@@ -73,7 +79,9 @@ public abstract class Spell
             where, 
             target - where, 
             GetSpeed(), 
-            OnHit);
+            OnHit,
+            lifetime,
+            GetSize());
         yield return new WaitForEndOfFrame();
     }
 

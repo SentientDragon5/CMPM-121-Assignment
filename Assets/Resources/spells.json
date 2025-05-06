@@ -5,7 +5,7 @@
        "icon": 0,
        "damage": {"amount": "25 power 5 / +", "type": "arcane"},
        "mana_cost": "10",
-       "cooldown": "2",
+       "cooldown": "1",
        "projectile": {"trajectory": "straight", "speed": "8 power 5 / +", "sprite": 0}
    },
    "magic_missile":  {
@@ -91,17 +91,16 @@
    },
     "rapid": {
         "name":"rapid",
-        "description" : "Decreased cooldown, but slightly increases mana consumtion.",
-        "mana_multiplier" : "1.25",
-        "cooldown_multiplier":"0.5"
+        "description" : "Rapid fire shoots particles as you hold down.",
+        "damage_multiplier" : "0.3",
+        "cooldown_multiplier":"0.2",
+        "size_multiplier":"0.2",
+        "mana_multiplier":"0.5"
     },
-    "ultimate":{
-        "name":"ultimate",
-        "description" : "upgrades all aspects of the spell slightly.",
-        "mana_multiplier" : "0.8",
-        "cooldown_multiplier":"0.8",
-        "damage_multiplier":"1.2",
-        "speed_multiplier":"1.2"
+    "huge":{
+        "name":"huge",
+        "description" : "makes the spell huge.",
+        "size_multiplier" : "4"
     }
 
 }

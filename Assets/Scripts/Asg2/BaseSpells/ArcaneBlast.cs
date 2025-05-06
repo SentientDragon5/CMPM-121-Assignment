@@ -27,7 +27,9 @@ public class ArcaneBlast : Spell
             where,
             direction,
             GetSpeed(),
-            OnBlastHit
+            OnBlastHit,
+            lifetime,
+            GetSize()
         );
         
         yield return new WaitForEndOfFrame();
@@ -95,7 +97,8 @@ public class ArcaneBlast : Spell
                 direction,
                 speed,
                 OnSecondaryHit,
-                lifetime
+                lifetime,
+                GetSize()
             );
         }
     }

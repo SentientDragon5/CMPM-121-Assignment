@@ -40,6 +40,7 @@ public abstract class ModifierSpell : Spell {
     public override float GetCooldown() => baseSpell.GetCooldown();
     public override float GetSpeed() => baseSpell.GetSpeed();
     public override string GetTrajectory() => baseSpell.GetTrajectory();
+    public override float GetSize() => baseSpell.GetSize();
     
     public override bool IsReady() => baseSpell.IsReady();
 

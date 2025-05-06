@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour
         SpellBuilder spellBuilder = new SpellBuilder();
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_bolt", spellcaster));
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_spray", spellcaster));
-        spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
-        spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_blast", spellcaster));
+        //spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
+        //spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_blast", spellcaster));
 
         // testing modifiers here
 
@@ -63,11 +63,19 @@ public class PlayerController : MonoBehaviour
         // Spell chainLightingDoubler = new DoublerModifier(chainLightning, spellcaster);
         // spellcaster.AddSpell(chainLightingDoubler);
 
+        // Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
+        // Spell rapidBolt = new RapidModifier(arcaneBolt, spellcaster);
+        // spellcaster.AddSpell(rapidBolt);
+        
+        Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
+        Spell hugeBolt = new HugeModifier(arcaneBolt, spellcaster);
+        spellcaster.AddSpell(hugeBolt);
+
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
         RefreshSpellUI();
 
-        Debug.Log("Started level with 5 spells. Press 1-5 to switch between them.");
+        //Debug.Log("Started level with 5 spells. Press 1-5 to switch between them.");
 
     }
 
