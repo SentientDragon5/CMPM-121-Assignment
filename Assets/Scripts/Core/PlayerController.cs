@@ -42,6 +42,27 @@ public class PlayerController : MonoBehaviour
         spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_blast", spellcaster));
 
+        // testing modifiers here
+
+        // Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
+        // Spell swiftBolt = new SpeedModifier(arcaneBolt, spellcaster);
+        // spellcaster.AddSpell(swiftBolt);
+
+        // Spell arcaneSpray = spellBuilder.BuildSpell("arcane_spray", spellcaster);
+        // spellcaster.AddSpell(arcaneSpray);
+
+        // Spell magicMissile = spellBuilder.BuildSpell("magic_missile", spellcaster);
+        // Spell splitMissile = new SplitterModifier(magicMissile, spellcaster);
+        // spellcaster.AddSpell(splitMissile);
+
+        // // Spell arcaneBlast = spellBuilder.BuildSpell("arcane_blast", spellcaster);
+        // // Spell chaosArcaneBlast = new ChaosModifier(arcaneBlast, spellcaster);
+        // // spellcaster.AddSpell(chaosArcaneBlast);
+
+        // Spell chainLightning = spellBuilder.BuildSpell("chain_lightning", spellcaster);
+        // Spell chainLightingDoubler = new DoublerModifier(chainLightning, spellcaster);
+        // spellcaster.AddSpell(chainLightingDoubler);
+
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
         RefreshSpellUI();

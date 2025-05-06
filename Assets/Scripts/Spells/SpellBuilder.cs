@@ -156,8 +156,24 @@ public class SpellBuilder
     // Create a modifier instance based on the key
     private Spell CreateModifierInstance(string key, Spell baseSpell, SpellCaster owner)
     {
-        // implement modifier creation logic here
-        Debug.LogError($"Modifier spells not implemented yet: {key}");
-        return null;
+        switch (key.ToLower())
+        {
+            case "damage_amp":
+                return new DamageMagnifier(baseSpell, owner);
+            case "doubler":
+                return new DoublerModifier(baseSpell, owner);
+            case "splitter":
+                return new SplitterModifier(baseSpell, owner);
+            case "chaos":
+                return new ChaosModifier(baseSpell, owner);
+            case "speed_amp":
+                return new SpeedModifier(baseSpell, owner);
+            case "homing":
+                return new HomingModifier(baseSpell, owner);
+            // Add other modifiers as you implement them
+            default:
+                Debug.LogError($"Unknown modifier key: {key}");
+                return baseSpell; 
+        }
     }
 }

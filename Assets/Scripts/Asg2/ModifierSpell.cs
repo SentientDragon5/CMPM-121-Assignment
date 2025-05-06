@@ -11,12 +11,22 @@ public abstract class ModifierSpell : Spell {
     public ModifierSpell(Spell baseSpell, SpellCaster owner) : base(owner)
     {
         this.baseSpell = baseSpell;
+        InitializeAttributes();
+        ApplyModifiers();
     }
 
     protected override void InitializeAttributes()
     {
         attributes = new SpellAttributes();
     }
+
+    protected SpellAttributes GetBaseSpellAttributes()
+    {
+        return baseSpell.GetType().GetField("attributes", 
+            System.Reflection.BindingFlags.Instance | 
+            System.Reflection.BindingFlags.NonPublic)?.GetValue(baseSpell) as SpellAttributes;
+    }
+    
     
     // Apply modifiers to the base spell's attributes
     protected abstract void ApplyModifiers();
@@ -36,10 +46,8 @@ public abstract class ModifierSpell : Spell {
     // Cast operation to the base spell for specific logic
     public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
-        // Apply our modifiers before casting
-        ApplyModifiers();
-        
         // Then let the base spell handle the actual casting
+        this.team = team;
         last_cast = Time.time;
         yield return baseSpell.Cast(where, target, team);
     }
