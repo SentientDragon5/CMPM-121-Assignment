@@ -782,7 +782,7 @@ MonoBehaviour:
   victoryStatsText: {fileID: 944246204}
   reward: {fileID: 1350172778}
   acceptReward: {fileID: 378536786}
-  rewardText: {fileID: 0}
+  rewardText: {fileID: 1399987150}
 --- !u!4 &220180078
 Transform:
   m_ObjectHideFlags: 0
