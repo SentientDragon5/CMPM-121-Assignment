@@ -42,6 +42,7 @@ public class GameManager
     public float waveStartTime;
     public int totalDamageDealt;
     public int totalDamageTaken;
+    public int wave;
     public UnityEvent onNextWave = new();
 
     public void AddEnemy(GameObject enemy)

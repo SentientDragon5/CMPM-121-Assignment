@@ -31,7 +31,7 @@ public abstract class ModifierSpell : Spell {
     // Apply modifiers to the base spell's attributes
     protected abstract void ApplyModifiers();
     
-    public override string GetName() => baseSpell.GetName();
+    public override string GetName() => attributes.name +" "+ baseSpell.GetName();
     public override int GetIcon() => baseSpell.GetIcon();
     
     // handled by ValueModifier system

@@ -96,7 +96,8 @@ public class SpellBuilder
         Spell baseSpell = BuildSpell(baseSpellKey, owner);
         
         // Decide how many modifiers to apply 
-        int numModifiers = random.Next(4); 
+        int maxModifiers = GameManager.Instance.wave;
+        int numModifiers = random.Next(maxModifiers); 
         
         // Apply modifiers
         Spell result = baseSpell;

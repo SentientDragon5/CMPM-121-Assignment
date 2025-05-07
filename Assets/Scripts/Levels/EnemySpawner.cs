@@ -74,6 +74,7 @@ public class EnemySpawner : MonoBehaviour
         
         StartCoroutine(SpawnWave());
 
+        GameManager.Instance.wave = wave;
         GameManager.Instance.onNextWave.Invoke();
     }
 
