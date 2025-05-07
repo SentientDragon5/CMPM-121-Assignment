@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Events;
 
 public class GameManager 
 {
@@ -41,6 +42,7 @@ public class GameManager
     public float waveStartTime;
     public int totalDamageDealt;
     public int totalDamageTaken;
+    public UnityEvent onNextWave = new();
 
     public void AddEnemy(GameObject enemy)
     {

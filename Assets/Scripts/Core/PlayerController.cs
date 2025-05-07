@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,10 +21,11 @@ public class PlayerController : MonoBehaviour
     public Unit unit;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    async Task Start()
     {
         unit = GetComponent<Unit>();
         GameManager.Instance.player = gameObject;
+        GameManager.Instance.onNextWave.AddListener(OnNextWave);
     }
 
     public void StartLevel()
@@ -164,7 +166,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void OnNextWave(){
+    public void OnNextWave(){
         
         float power_scaling_mult = 1.2f;
         hp.SetMaxHP(Mathf.FloorToInt(hp.max_hp * power_scaling_mult));

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
             selector.GetComponent<MenuSelectorController>().spawner = this;
             selector.GetComponent<MenuSelectorController>().SetLevel(level.name);
         }
+
     }
 
     // Update is called once per frame
@@ -71,7 +73,10 @@ public class EnemySpawner : MonoBehaviour
         }
         
         StartCoroutine(SpawnWave());
+
+        GameManager.Instance.onNextWave.Invoke();
     }
+
 
 
     IEnumerator SpawnWave()
