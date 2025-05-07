@@ -42,6 +42,14 @@ public class SpellCaster
         this.spellPower = power;
     }
     
+    // same as set max hp from hittable
+    public void SetMaxMana(int max_mana)
+    {
+        float perc = this.mana * 1.0f / this.max_mana;
+        this.max_mana = max_mana;
+        this.mana = Mathf.RoundToInt(perc * max_mana);
+    }
+    
     public bool AddSpell(Spell spell)
     {
         if (equippedSpells.Count < MAX_EQUIPPED_SPELLS)

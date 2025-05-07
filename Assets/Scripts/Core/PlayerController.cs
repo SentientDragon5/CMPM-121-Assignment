@@ -163,4 +163,13 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.GameOver();
     }
 
+
+    void OnNextWave(){
+        
+        float power_scaling_mult = 1.2f;
+        hp.SetMaxHP(Mathf.FloorToInt(hp.max_hp * power_scaling_mult));
+        spellcaster.SetSpellPower(Mathf.FloorToInt(spellcaster.spellPower * power_scaling_mult));
+        spellcaster.SetMaxMana(Mathf.FloorToInt(spellcaster.max_mana * power_scaling_mult));
+        spellcaster.mana_reg = Mathf.FloorToInt(spellcaster.mana_reg * power_scaling_mult);
+    }
 }
