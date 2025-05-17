@@ -16,6 +16,30 @@ public class PlayerController : MonoBehaviour
     public SpellCaster spellcaster;
     public List<SpellUI> spellui;
 
+    // =======  events  ======== 
+    public UnityEvent onTakeDamage = new();
+     /// <summary>
+     /// called every second that the player stand still
+     /// </summary>
+    public UnityEvent<int> onStandStill = new();
+    float standStillTimer = 0;
+    public UnityEvent onMove = new();
+    public UnityEvent onKill = new();
+
+    // ======= reactions =======
+    /// <summary>
+    /// adds to the current spellpower
+    /// </summary>
+    /// <param name="bonus"></param>
+    public void SetBonusSpellpower(int bonus)
+    {
+        spellcaster.SetBonusSpellPower(bonus);
+    }
+    public void GainMana(int amount) => spellcaster.GainMana(amount);
+
+    public void OnTest(int a = 0) => Debug.Log(a);
+    public void OnTest() => Debug.Log("a");
+
     public int speed;
 
     public Unit unit;
@@ -27,6 +51,8 @@ public class PlayerController : MonoBehaviour
         unit = GetComponent<Unit>();
         GameManager.Instance.player = gameObject;
         GameManager.Instance.onNextWave.AddListener(OnNextWave);
+        onMove.AddListener(OnTest);
+        onStandStill.AddListener(OnTest);
     }
 
     public void StartLevel()
@@ -131,13 +157,28 @@ public class PlayerController : MonoBehaviour
         // testing purposes
         for (int i = 0; i < 5; i++)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i) && 
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i) &&
                 spellcaster.equippedSpells.Count > i)
             {
                 spellcaster.SelectSpell(i);
                 Debug.Log($"Switched to spell: {spellcaster.activeSpell.GetName()}");
-                
+
             }
+        }
+        
+        if (unit.movement.magnitude > 0.01f)
+        {
+            onMove.Invoke();
+            standStillTimer = 0;
+        }
+        else
+        {
+            // check if the new time just crosses the threshold of an int, then invoke event.
+            float t = standStillTimer + Time.deltaTime;
+            float nearestInt = Mathf.Round(standStillTimer);
+            if (standStillTimer < nearestInt && t > Mathf.Round(standStillTimer))
+                onStandStill.Invoke(Mathf.RoundToInt(nearestInt));
+            standStillTimer = t;
         }
     }
 
@@ -154,10 +195,10 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value)
     {
-        if (GameManager.Instance.state == GameManager.GameState.PREGAME || 
-        GameManager.Instance.state == GameManager.GameState.GAMEOVER || 
+        if (GameManager.Instance.state == GameManager.GameState.PREGAME ||
+        GameManager.Instance.state == GameManager.GameState.GAMEOVER ||
         GameManager.Instance.state == GameManager.GameState.VICTORY) return;
-        unit.movement = value.Get<Vector2>()*speed;
+        unit.movement = value.Get<Vector2>() * speed;
     }
 
     void Die()

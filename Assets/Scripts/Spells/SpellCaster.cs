@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class SpellCaster 
 {
     public int mana;
     public int max_mana;
     public int mana_reg;
-    public int spellPower;
+    int sp;
+    public int spellPower { get => sp + bonusSpellPower; set => sp = value; }
+    public int bonusSpellPower = 0;
     public Hittable.Team team;
     public List<Spell> equippedSpells;
     public int activeSpellIndex;
@@ -20,10 +23,15 @@ public class SpellCaster
     {
         while (true)
         {
-            mana += mana_reg;
-            mana = Mathf.Min(mana, max_mana);
+            GainMana(mana_reg);
             yield return new WaitForSeconds(1);
         }
+    }
+
+    public void GainMana(int amount)
+    {
+        mana += amount;
+        mana = Mathf.Min(mana, max_mana);
     }
 
     public SpellCaster(int mana, int mana_reg, Hittable.Team team)
@@ -32,7 +40,7 @@ public class SpellCaster
         this.max_mana = mana;
         this.mana_reg = mana_reg;
         this.team = team;
-        this.spellPower = 10; 
+        this.spellPower = 10;
         equippedSpells = new List<Spell>();
         activeSpellIndex = 0;
     }
@@ -40,6 +48,10 @@ public class SpellCaster
     public void SetSpellPower(int power)
     {
         this.spellPower = power;
+    }
+    public void SetBonusSpellPower(int power)
+    {
+        this.bonusSpellPower = power;
     }
     
     // same as set max hp from hittable
@@ -82,13 +94,15 @@ public class SpellCaster
     }
 
     public IEnumerator Cast(Vector3 where, Vector3 target)
-    {        
+    {
         if (activeSpell != null && mana >= activeSpell.GetManaCost() && activeSpell.IsReady())
         {
             mana -= activeSpell.GetManaCost();
             yield return activeSpell.Cast(where, target, team);
         }
+        onCastSpell.Invoke();
         yield break;
     }
-
+    
+    public UnityEvent onCastSpell = new();
 }
