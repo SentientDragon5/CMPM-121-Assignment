@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
     public Unit unit;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    async Task Start()
+    //async Task Start()
+    void Start()
     {
         unit = GetComponent<Unit>();
         GameManager.Instance.player = gameObject;
