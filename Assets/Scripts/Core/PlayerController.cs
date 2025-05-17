@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent<int> onStandStill = new();
     float standStillTimer = 0;
     public UnityEvent onMove = new();
+    // called in line 98 on spell.cs
     public UnityEvent onKill = new();
 
     // ======= reactions =======

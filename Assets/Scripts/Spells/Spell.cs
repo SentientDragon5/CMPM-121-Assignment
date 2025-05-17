@@ -94,6 +94,8 @@ public abstract class Spell
             other.Damage(new Damage(damage, damageType));
 
             GameManager.Instance.totalDamageDealt += damage;
+            
+            GameManager.Instance.player.GetComponent<PlayerController>().onKill.Invoke();
         }
     }
 
