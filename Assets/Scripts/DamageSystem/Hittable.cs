@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 public class Hittable
 {
@@ -18,7 +19,7 @@ public class Hittable
         {
             GameManager.Instance.totalDamageTaken += damage.amount;
         }
-        
+
         EventBus.Instance.DoDamage(owner.transform.position, damage, this);
         hp -= damage.amount;
         if (hp <= 0)
@@ -26,7 +27,13 @@ public class Hittable
             hp = 0;
             OnDeath();
         }
+        else
+        {
+            // currently only called if not killed
+            onTakeDamage.Invoke();
+        }
     }
+    public UnityEvent onTakeDamage = new();
 
     public event Action OnDeath;
 

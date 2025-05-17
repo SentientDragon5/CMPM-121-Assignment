@@ -17,10 +17,10 @@ public class PlayerController : MonoBehaviour
     public List<SpellUI> spellui;
 
     // =======  events  ======== 
-    public UnityEvent onTakeDamage = new();
+    // on take damage is in hp.
      /// <summary>
-     /// called every second that the player stand still
-     /// </summary>
+    /// called every second that the player stand still
+    /// </summary>
     public UnityEvent<int> onStandStill = new();
     float standStillTimer = 0;
     public UnityEvent onMove = new();
@@ -51,8 +51,6 @@ public class PlayerController : MonoBehaviour
         unit = GetComponent<Unit>();
         GameManager.Instance.player = gameObject;
         GameManager.Instance.onNextWave.AddListener(OnNextWave);
-        onMove.AddListener(OnTest);
-        onStandStill.AddListener(OnTest);
     }
 
     public void StartLevel()
