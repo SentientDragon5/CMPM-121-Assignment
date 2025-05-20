@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     // =======  events  ======== 
     // on take damage is in hp.
-     /// <summary>
+    /// <summary>
     /// called every second that the player stand still
     /// </summary>
     public UnityEvent<int> onStandStill = new();
@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
 
     public Unit unit;
 
+    // Player relic list
+    public List<Relic> relics = new List<Relic>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //async Task Start()
     void Start()
@@ -58,7 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         spellcaster = new SpellCaster(125, 8, Hittable.Team.PLAYER);
         StartCoroutine(spellcaster.ManaRegeneration());
-        
+
         hp = new Hittable(100, Hittable.Team.PLAYER, gameObject);
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
@@ -94,7 +97,7 @@ public class PlayerController : MonoBehaviour
         // Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
         // Spell rapidBolt = new RapidModifier(arcaneBolt, spellcaster);
         // spellcaster.AddSpell(rapidBolt);
-        
+
         Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
         Spell hugeBolt = new HugeModifier(arcaneBolt, spellcaster);
         spellcaster.AddSpell(hugeBolt);
@@ -103,48 +106,55 @@ public class PlayerController : MonoBehaviour
         manaui.SetSpellCaster(spellcaster);
         RefreshSpellUI();
 
+        RelicSystem.Instance.Initialize(this);
+
         //Debug.Log("Started level with 5 spells. Press 1-5 to switch between them.");
 
     }
 
 
     public UnityEvent onDropSpell = new();
-    public bool CanCarryMoreSpells {get => spellcaster.equippedSpells.Count < 4;}
-    void RefreshSpellUI(){
+    public bool CanCarryMoreSpells { get => spellcaster.equippedSpells.Count < 4; }
+    void RefreshSpellUI()
+    {
 
         var spells = spellcaster.equippedSpells;
-        int i=0;
+        int i = 0;
         for (i = 0; i < spells.Count; i++)
         {
             spellui[i].gameObject.SetActive(true);
             spellui[i].SetSpell(spells[i]);
-            if(spells.Count == 1)
+            if (spells.Count == 1)
                 spellui[i].dropbutton.SetActive(false);
             else
                 spellui[i].dropbutton.SetActive(true);
         }
         for (; i < 4; i++)
-        {        
+        {
             spellui[i].gameObject.SetActive(false);
         }
     }
 
 
     private Spell reward;
-    public Spell Reward {get => reward;}
-    public void RollReward(){
+    public Spell Reward { get => reward; }
+    public void RollReward()
+    {
         reward = GameManager.Instance.spellBuilder.BuildRandomSpell(spellcaster);
     }
-    public void ClaimReward(){
+    public void ClaimReward()
+    {
         if (CanCarryMoreSpells)
             AddSpell(reward);
     }
 
-    public void AddSpell(Spell spell){
+    public void AddSpell(Spell spell)
+    {
         spellcaster.AddSpell(spell);
         RefreshSpellUI();
     }
-    public void DropSpell(int i){
+    public void DropSpell(int i)
+    {
         spellcaster.RemoveSpell(i);
         RefreshSpellUI();
         onDropSpell.Invoke();
@@ -164,7 +174,7 @@ public class PlayerController : MonoBehaviour
 
             }
         }
-        
+
         if (unit.movement.magnitude > 0.01f)
         {
             onMove.Invoke();
@@ -179,12 +189,41 @@ public class PlayerController : MonoBehaviour
                 onStandStill.Invoke(Mathf.RoundToInt(nearestInt));
             standStillTimer = t;
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            // Test relic system by giving player a random relic
+            var availableRelics = RelicSystem.Instance.GetRandomRelics(1);
+            if (availableRelics.Count > 0)
+            {
+                AddRelic(availableRelics[0]);
+                Debug.Log($"TEST: Added relic {availableRelics[0].name}");
+            }
+            else
+            {
+                Debug.Log("No relics available to add");
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.T)) 
+        {
+            // Simulate taking damage to test take-damage trigger
+            Debug.Log("TEST: Simulating damage taken");
+            hp.onTakeDamage.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K)) 
+        {
+            // Simulate killing an enemy to test on-kill trigger
+            Debug.Log("TEST: Simulating enemy kill");
+            onKill.Invoke();
+        }
     }
 
     void OnAttack(InputValue value)
     {
-        if (GameManager.Instance.state == GameManager.GameState.PREGAME || 
-        GameManager.Instance.state == GameManager.GameState.GAMEOVER || 
+        if (GameManager.Instance.state == GameManager.GameState.PREGAME ||
+        GameManager.Instance.state == GameManager.GameState.GAMEOVER ||
         GameManager.Instance.state == GameManager.GameState.VICTORY) return;
         Vector2 mouseScreen = Mouse.current.position.value;
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
@@ -207,12 +246,22 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnNextWave(){
-        
+    public void OnNextWave()
+    {
+
         float power_scaling_mult = 1.2f;
         hp.SetMaxHP(Mathf.FloorToInt(hp.max_hp * power_scaling_mult));
         spellcaster.SetSpellPower(Mathf.FloorToInt(spellcaster.spellPower * power_scaling_mult));
         spellcaster.SetMaxMana(Mathf.FloorToInt(spellcaster.max_mana * power_scaling_mult));
         spellcaster.mana_reg = Mathf.FloorToInt(spellcaster.mana_reg * power_scaling_mult);
     }
+
+    public void AddRelic(Relic relic)
+    {
+        relics.Add(relic);
+        RelicSystem.Instance.ActivateRelic(relic);
+        Debug.Log($"Added relic: {relic.name}");
+    }
+
+    
 }
