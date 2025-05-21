@@ -66,7 +66,7 @@ public class GameUIManager : MonoBehaviour
         {
             rewardUI.SetActive(true);
             float waveDuration = Time.time - GameManager.Instance.waveStartTime;
-            bool thirdWave = true;//((spawner.wave + 1) % 3 == 0 && spawner.wave > 0);
+            bool thirdWave = ((spawner.wave + 1) % 3 == 0 && spawner.wave > 0);
             
             var pc = GameManager.Instance.player.GetComponent<PlayerController>();
             pc.RollReward();
