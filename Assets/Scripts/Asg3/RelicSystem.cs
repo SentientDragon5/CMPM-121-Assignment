@@ -52,14 +52,16 @@ public class RelicSystem : MonoBehaviour
         triggerSetups["take-damage"] = SetupTakeDamageTrigger;
         triggerSetups["stand-still"] = SetupStandStillTrigger;
         triggerSetups["on-kill"] = SetupOnKillTrigger;
-        // custom relics triggers go here
+        triggerSetups["drop-spell"] = SetupOnDropTrigger;
+        triggerSetups["take-spell"] = SetupOnTakeTrigger;
     }
     
     private void RegisterEffectHandlers()
     {
         effectApplications["gain-mana"] = ApplyGainManaEffect;
         effectApplications["gain-spellpower"] = ApplyGainSpellPowerEffect;
-        // custom relics effects fo here
+        effectApplications["gain-speed"] = ApplyGainSpeedEffect;
+        // custom relics effects go here
     }
     
     public void Initialize(PlayerController playerController)
@@ -179,6 +181,44 @@ public class RelicSystem : MonoBehaviour
         }
     }
     
+    private void SetupOnTakeTrigger(RelicTrigger trigger, RelicEffect effect, PlayerController player)
+    {
+        UnityEngine.Events.UnityAction takeAction = () => {
+            if (effectApplications.TryGetValue(effect.type, out var applyEffect))
+            {
+                applyEffect(effect, player);
+                Debug.Log($"Triggered '{trigger.description}' effect: {effect.description}");
+            }
+        };
+        player.onTakeSpell.AddListener(takeAction);
+
+        if (effect.until == "drop-spell")
+        {
+            UnityEngine.Events.UnityAction dropAction = () => {
+                if (effectApplications.TryGetValue(effect.type, out var applyEffect))
+                {
+                    player.SetBonusSpellpower(0);
+                        Debug.Log($"Ended '{effect.description}' effect due to dropped spell");
+                }
+            };
+            
+            player.onDropSpell.AddListener(dropAction);
+        }
+    }
+
+    private void SetupOnDropTrigger(RelicTrigger trigger, RelicEffect effect, PlayerController player)
+    {
+        UnityEngine.Events.UnityAction dropAction = () => {
+            if (effectApplications.TryGetValue(effect.type, out var applyEffect))
+            {
+                applyEffect(effect, player);
+                Debug.Log($"Triggered '{trigger.description}' effect: {effect.description}");
+            }
+        };
+        
+        player.onDropSpell.AddListener(dropAction);
+    }
+    
     private void SetupOnKillTrigger(RelicTrigger trigger, RelicEffect effect, PlayerController player)
     {
         UnityEngine.Events.UnityAction killAction = () => {
@@ -190,6 +230,19 @@ public class RelicSystem : MonoBehaviour
         };
         
         player.onKill.AddListener(killAction);
+
+        if (effect.until == "take-damage")
+        {
+            UnityEngine.Events.UnityAction dropAction = () => {
+                if (effectApplications.TryGetValue(effect.type, out var applyEffect))
+                {
+                    player.SetBonusSpellpower(0);
+                        Debug.Log($"Ended '{effect.description}' effect due to damage recived");
+                }
+            };
+            
+            player.hp.onTakeDamage.AddListener(dropAction);
+        }
     }
     
     private void ApplyGainManaEffect(RelicEffect effect, PlayerController player)
@@ -197,6 +250,13 @@ public class RelicSystem : MonoBehaviour
         int amount = EvaluateAmount(effect.amount);
         player.GainMana(amount);
         Debug.Log($"Applied effect: Gained {amount} mana");
+    }
+
+    private void ApplyGainSpeedEffect(RelicEffect effect, PlayerController player)
+    {
+        int amount = EvaluateAmount(effect.amount);
+        player.SpeedUp(amount);
+        Debug.Log($"Applied effect: Gained {amount} speed");
     }
     
     private void ApplyGainSpellPowerEffect(RelicEffect effect, PlayerController player)

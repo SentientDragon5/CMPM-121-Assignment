@@ -116,5 +116,17 @@
                 "location": "random"
             }    
         ]
+   },
+   {   
+       "name": "Debug",
+       "spawns": [
+            {   
+                "enemy": "skeleton",
+                "count": "wave 4 /",
+                "hp": "20 wave *",
+                "sequence": [2, 2],
+                "location": "random red"
+            }
+        ]
    }
 ]

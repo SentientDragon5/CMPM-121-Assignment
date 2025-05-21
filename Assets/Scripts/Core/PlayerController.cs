@@ -41,7 +41,9 @@ public class PlayerController : MonoBehaviour
     public void OnTest(int a = 0) => Debug.Log(a);
     public void OnTest() => Debug.Log("a");
 
+    //thought i was special w the movement speed relic but yall alr got that crazy
     public int speed;
+    public void SpeedUp(int amount) => speed += amount;
 
     public Unit unit;
 
@@ -114,6 +116,7 @@ public class PlayerController : MonoBehaviour
 
 
     public UnityEvent onDropSpell = new();
+    public UnityEvent onTakeSpell = new();
     public bool CanCarryMoreSpells { get => spellcaster.equippedSpells.Count < 4; }
     void RefreshSpellUI()
     {
@@ -146,6 +149,7 @@ public class PlayerController : MonoBehaviour
     {
         if (CanCarryMoreSpells)
             AddSpell(reward);
+        onTakeSpell.Invoke();
     }
 
     public void AddSpell(Spell spell)
@@ -158,6 +162,21 @@ public class PlayerController : MonoBehaviour
         spellcaster.RemoveSpell(i);
         RefreshSpellUI();
         onDropSpell.Invoke();
+    }
+
+    public UnityEvent onTakeRelic = new();
+    private List<Relic> relic;
+    public RelicUIManager relicsUI;
+    public List<Relic> Relic { get => relic; }
+    public void RollRelic()
+    {
+        relic = RelicSystem.Instance.GetRandomRelics(3);
+    }
+    public void TookRelic(int ind)
+    {
+        RelicSystem.Instance.ActivateRelic(relic[ind]);
+        relicsUI.PutsRelic(relic[ind]);
+        onTakeRelic.Invoke();
     }
 
     // Update is called once per frame

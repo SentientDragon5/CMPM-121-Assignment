@@ -21,7 +21,7 @@
             "amount": "3"
         },
         "effect": {
-            "description": "you gain 10 spellpower (+5/wave)",
+            "description": "you gain 10 spellpower (+5/wave).",
             "type": "gain-spellpower",
             "amount": "10 wave 5 * +",
             "until": "move"
@@ -52,6 +52,60 @@
             "description": "you gain 25 mana.",
             "type": "gain-mana",
             "amount": "25"
+        }
+    },
+    {
+        "name": "Hollow Orb",
+        "sprite": 13,
+        "trigger": {
+            "description": "When you drop a spell",
+            "type": "drop-spell"
+        },
+        "effect": {
+            "description": "you gain 5 spellpower.",
+            "type": "gain-spellpower",
+            "amount": "5"
+        }
+    },
+    {
+        "name": "Gluttony",
+        "sprite": 11,
+        "trigger": {
+            "description": "When you take a spell reward",
+            "type": "take-spell"
+        },
+        "effect": {
+            "description": "you gain 66 spellpower (lost when spell is dropped).",
+            "type": "gain-spellpower",
+            "amount": "66",
+            "until": "drop-spell"
+        }
+    },
+    {
+        "name": "Glass Blade",
+        "sprite": 12,
+        "trigger": {
+            "description": "When you kill an enemy or take damage",
+            "type": "on-kill"
+        },
+        "effect": {
+            "description": "you gain or lose 25 spellpower respectively.",
+            "type": "gain-spellpower",
+            "amount": "25",
+            "until": "take-damage"
+        }
+    },
+    {
+        "name": "Anxiety",
+        "sprite": 4,
+        "trigger": {
+            "description": "When you take damage",
+            "type": "take-damage"
+        },
+        "effect": {
+            "description": "increase your movement speed.",
+            "type": "gain-speed",
+            "amount": "1"
         }
     }
 ]

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -55,12 +56,17 @@ public class GameUIManager : MonoBehaviour
     public SpellUI reward;
     public Button acceptReward;
     public TextMeshProUGUI rewardText;
+    public Button[] acceptRelics = new Button[3];
+    public TextMeshProUGUI[] relicTexts = new TextMeshProUGUI[3];
+    private List<Relic> relicReward;
+
     void HandleWaveEnd()
     {
         if (!rewardUI.activeSelf)
         {
             rewardUI.SetActive(true);
             float waveDuration = Time.time - GameManager.Instance.waveStartTime;
+            bool thirdWave = true;//((spawner.wave + 1) % 3 == 0 && spawner.wave > 0);
             
             var pc = GameManager.Instance.player.GetComponent<PlayerController>();
             pc.RollReward();
@@ -78,9 +84,26 @@ public class GameUIManager : MonoBehaviour
                                $"Damage Taken: {GameManager.Instance.totalDamageTaken}\n" +
                                "Claim your Reward:";
             }
+
+            //needs to be last in this method (cuz guard if statement ykwm)
+            for (int i = 0; i < 3; i++)
+                if (acceptRelics[i] == null || relicTexts[i] == null)
+                    return;
+            pc.RollRelic();
+            for (int i = 0; i < 3; i++){
+                acceptRelics[i].gameObject.SetActive(thirdWave);
+                relicTexts[i].gameObject.SetActive(thirdWave);
+                acceptRelics[i].interactable = pc.Relic.Count > i;
+                var specificButton = acceptRelics[i]; //i miss pointers
+                pc.onTakeRelic.AddListener(() => specificButton.interactable = false);
+                if (pc.Relic.Count > i)
+                    relicTexts[i].text = pc.Relic[i].name + "\n" + pc.Relic[i].trigger.description + " " + pc.Relic[i].effect.description;
+                else
+                    relicTexts[i].text = "Nothing?\nWhen you're out (or almost out) of possible relic rewards this appears...";
+            }
         }
     }
-    
+
     void HandleGameOver()
     {
         if (!gameOverUI.activeSelf)
