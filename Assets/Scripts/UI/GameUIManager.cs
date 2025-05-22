@@ -56,6 +56,7 @@ public class GameUIManager : MonoBehaviour
     public SpellUI reward;
     public Button acceptReward;
     public TextMeshProUGUI rewardText;
+    public RelicUI[] relicIcons = new RelicUI[3];
     public Button[] acceptRelics = new Button[3];
     public TextMeshProUGUI[] relicTexts = new TextMeshProUGUI[3];
     private List<Relic> relicReward;
@@ -66,7 +67,7 @@ public class GameUIManager : MonoBehaviour
         {
             rewardUI.SetActive(true);
             float waveDuration = Time.time - GameManager.Instance.waveStartTime;
-            bool thirdWave = ((spawner.wave + 1) % 3 == 0 && spawner.wave > 0);
+            bool thirdWave = ((spawner.wave + 1) % 3 == 0);
             
             var pc = GameManager.Instance.player.GetComponent<PlayerController>();
             pc.RollReward();
@@ -74,6 +75,10 @@ public class GameUIManager : MonoBehaviour
             acceptReward.interactable = pc.CanCarryMoreSpells;
             acceptReward.gameObject.SetActive(true);
             rewardText.text = pc.Reward.GetName() + "\n" + pc.Reward.GetDescription();
+            reward.transform.localPosition =       new Vector3( 0 + (thirdWave? 265 : 0),  -35, 0);
+            acceptReward.transform.localPosition = new Vector3( 0 + (thirdWave? 265 : 0),  -90, 0);
+            rewardText.transform.localPosition =   new Vector3(11 + (thirdWave? 265 : 0), -144, 0);
+
             pc.onDropSpell.AddListener(() => acceptReward.interactable = true);
 
             if (rewardStatsText != null)
@@ -87,18 +92,21 @@ public class GameUIManager : MonoBehaviour
 
             //needs to be last in this method (cuz guard if statement ykwm)
             for (int i = 0; i < 3; i++)
-                if (acceptRelics[i] == null || relicTexts[i] == null)
+                if (acceptRelics[i] == null || relicIcons[i] == null || relicTexts[i] == null)
                     return;
             pc.RollRelic();
             for (int i = 0; i < 3; i++){
+                bool haveEnoughRelics = pc.Relic.Count > i;
                 acceptRelics[i].gameObject.SetActive(thirdWave);
                 relicTexts[i].gameObject.SetActive(thirdWave);
-                acceptRelics[i].interactable = pc.Relic.Count > i;
+                relicIcons[i].gameObject.SetActive(thirdWave && haveEnoughRelics);
+                acceptRelics[i].interactable = haveEnoughRelics;
                 var specificButton = acceptRelics[i]; //i miss pointers
                 pc.onTakeRelic.AddListener(() => specificButton.interactable = false);
-                if (pc.Relic.Count > i)
+                if (haveEnoughRelics){
                     relicTexts[i].text = pc.Relic[i].name + "\n" + pc.Relic[i].trigger.description + " " + pc.Relic[i].effect.description;
-                else
+                    relicIcons[i].SetRelic(pc.Relic[i]);
+                }else
                     relicTexts[i].text = "Nothing?\nWhen you're out (or almost out) of possible relic rewards this appears...";
             }
         }

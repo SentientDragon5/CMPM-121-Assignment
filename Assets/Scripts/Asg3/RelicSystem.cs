@@ -125,6 +125,14 @@ public class RelicSystem : MonoBehaviour
         // Remove from available relics
         availableRelics.RemoveAll(r => r.name == relic.name);
     }
+
+    public int RelicCount
+    {
+        get
+        {
+            return activeRelics.Count;
+        }
+    }
     
     private void SetupTakeDamageTrigger(RelicTrigger trigger, RelicEffect effect, PlayerController player)
     {

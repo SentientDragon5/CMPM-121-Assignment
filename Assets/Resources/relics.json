@@ -83,7 +83,7 @@
     },
     {
         "name": "Glass Blade",
-        "sprite": 12,
+        "sprite": 14,
         "trigger": {
             "description": "When you kill an enemy or take damage",
             "type": "on-kill"
