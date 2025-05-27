@@ -52,6 +52,26 @@
         "chain_range": "5",
     "projectile": {"trajectory": "straight", "speed": "22", "sprite": 0}
     },
+   "frost_shard": {
+        "name": "Frost Shard",
+        "description": "A quick, low-damage shard of ice that has a high chance to critically strike.",
+        "icon": 9,
+        "damage": {
+            "amount": "12 power 3 / +",
+            "type": "ice"
+        },
+        "crit": {
+            "chance": "0.4",
+            "damage_multiplier": "2"
+        },
+        "mana_cost": "8",
+        "cooldown": "0.8",
+        "projectile": {
+            "trajectory": "straight",
+            "speed": "12",
+            "sprite": 0
+        }
+    },
    "damage_amp": {
        "name": "damage-amplified",
        "description": "Increased damage and increased mana cost.",
@@ -101,6 +121,36 @@
         "name":"huge",
         "description" : "makes the spell huge.",
         "size_multiplier" : "4"
+    },
+    "slug": {
+        "name": "slug",
+        "description": "Significantly increased damage, but projectile speed is reduced by 60%.",
+        "speed_multiplier": "0.4",
+        "damage_multiplier": "2 wave 5 / +"
+    },
+    "wavy": {
+        "name": "wavy",
+        "description": "Spell is cast in a wavy line, and the projectile occasionally does significantly more damage.",
+        "projectile_trajectory": "wavy",
+        "crit": {
+            "chance": "0.1",
+            "damage_multiplier": "2"
+        }
+    },
+    "spiral": {
+        "name": "spiraling",
+        "description": "The projectile spins rapidly, following a spiral path.",
+        "projectile_trajectory": "spiraling"
+    },
+    "ricochet": {
+        "name": "ricochet",
+        "description": "The projectile bounces off one wall before disappearing.",
+        "projectile_trajectory": "ricochet"
+    },
+    "freeze": {
+    "name": "freeze",
+    "description": "Slows enemies hit by the projectile.",
+    "damage_multiplier": "0.85",
+    "mana_multiplier": "1.1"
     }
-
 }

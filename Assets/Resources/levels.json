@@ -35,6 +35,14 @@
                 "damage": "base",
                 "sequence": [1],
                 "location": "random"
+            },       
+            {
+                "enemy": "great slime", 
+                "count": "2 wave 3 / +",
+                "hp": "base 5 wave * +",
+                "delay": "3",
+                "sequence": [1],
+                "location": "random green"
             }
         ]
    },
@@ -75,6 +83,22 @@
                 "damage": "base 5 +",
                 "sequence": [1, 2],
                 "location": "random"
+            },
+            {
+                "enemy": "great slime", 
+                "count": "3 wave 2 / +",
+                "hp": "base 5 wave * +",
+                "delay": "3",
+                "sequence": [2, 1],
+                "location": "random green"
+            },
+            {
+                "enemy": "slate", 
+                "count": "wave 2 /",
+                "hp": "base 100 wave * +",
+                "delay": "3",
+                "sequence": [2],
+                "location": "random"
             }
         ]
    },
@@ -114,7 +138,23 @@
                 "damage": "base 10 +",
                 "sequence": [1, 1, 2],
                 "location": "random"
-            }    
+            },
+            {
+                "enemy": "great slime", 
+                "count": "2 wave 4 / +",
+                "hp": "base 5 wave * +",
+                "delay": "3",
+                "sequence": [2, 1],
+                "location": "random green"
+            },
+            {
+                "enemy": "slate", 
+                "count": "wave 2 /",
+                "hp": "base 50 wave * +", 
+                "delay": "3",
+                "sequence": [1, 1, 2],
+                "location": "random"
+            }
         ]
    },
    {   
@@ -126,6 +166,20 @@
                 "hp": "20 wave *",
                 "sequence": [2, 2],
                 "location": "random red"
+            },{
+                "enemy": "slate",
+                "count": "1 wave +",
+                "hp": "base 50 wave * +",
+                "delay": "3",
+                "location": "random"
+            },
+            {
+                "enemy": "great slime", 
+                "count": "1 wave +",
+                "hp": "base 5 wave * +",
+                "delay": "3",
+                "sequence": [2, 1],
+                "location": "random green"
             }
         ]
    }
