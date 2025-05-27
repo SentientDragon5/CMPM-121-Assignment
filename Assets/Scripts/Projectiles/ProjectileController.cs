@@ -24,6 +24,13 @@ public class ProjectileController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("projectile")) return;
+
+        if (movement is RicochetProjectileMovement ricochet)
+        {
+            // Try to bounce, or destroy if no bounces left
+            if (ricochet.TryBounce(collision, transform)) return;
+        }
+
         if (collision.gameObject.CompareTag("unit"))
         {
             var ec = collision.gameObject.GetComponent<EnemyController>();
