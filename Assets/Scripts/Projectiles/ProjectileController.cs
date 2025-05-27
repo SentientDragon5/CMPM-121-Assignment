@@ -5,13 +5,13 @@ using System.Collections;
 public class ProjectileController : MonoBehaviour
 {
     public float lifetime;
-    public event Action<Hittable,Vector3> OnHit;
+    public event Action<Hittable, Vector3> OnHit;
     public ProjectileMovement movement;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

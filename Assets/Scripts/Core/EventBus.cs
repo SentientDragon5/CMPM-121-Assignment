@@ -27,26 +27,26 @@ public class EventBus
     }
 
     // new methods to handle relics
-     public void TriggerTakeDamage()
+    public void TriggerTakeDamage()
     {
         OnTakeDamage?.Invoke();
     }
-    
+
     public void TriggerStandingStill(int seconds)
     {
         OnStandingStill?.Invoke(seconds);
     }
-    
+
     public void TriggerMove()
     {
         OnMove?.Invoke();
     }
-    
+
     public void TriggerKill()
     {
         OnKill?.Invoke();
     }
-    
+
     public void TriggerCastSpell()
     {
         OnCastSpell?.Invoke();

@@ -13,4 +13,4 @@ public class WavyProjectileMovement : ProjectileMovement
         // transform.Translate(new Vector3(speed * Time.deltaTime, Mathf.Sin(Time.time * 15) * 1, 0), Space.Self);
         transform.Translate(new Vector3(speed * Time.deltaTime, Mathf.Sin(Time.time * 20) / 15, 0), Space.Self);
     }
-}   
+}

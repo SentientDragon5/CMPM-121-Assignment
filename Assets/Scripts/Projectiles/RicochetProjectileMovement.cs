@@ -4,7 +4,7 @@ public class RicochetProjectileMovement : ProjectileMovement
 {
     private int bouncesRemaining = 1;
 
-    public RicochetProjectileMovement(float speed) : base(speed) {}
+    public RicochetProjectileMovement(float speed) : base(speed) { }
 
     public override void Movement(Transform transform)
     {

@@ -223,15 +223,15 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("No relics available to add");
             }
         }
-        
-        if (Input.GetKeyDown(KeyCode.T)) 
+
+        if (Input.GetKeyDown(KeyCode.T))
         {
             // Simulate taking damage to test take-damage trigger
             Debug.Log("TEST: Simulating damage taken");
             hp.onTakeDamage.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.K)) 
+        if (Input.GetKeyDown(KeyCode.K))
         {
             // Simulate killing an enemy to test on-kill trigger
             Debug.Log("TEST: Simulating enemy kill");
@@ -282,5 +282,5 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"Added relic: {relic.name}");
     }
 
-    
+
 }

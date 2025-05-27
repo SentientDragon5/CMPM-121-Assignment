@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
             GetComponent<Unit>().movement = direction.normalized * speed;
         }
     }
-    
+
     void DoAttack()
     {
         if (last_attack + 2 < Time.time)
