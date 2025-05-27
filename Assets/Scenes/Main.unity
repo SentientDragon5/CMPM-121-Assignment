@@ -6515,7 +6515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa898092d9b0d8a41b153c7d66e057a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kind: 0
+  kind: 1
 --- !u!1 &967867791
 GameObject:
   m_ObjectHideFlags: 0
@@ -8981,7 +8981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa898092d9b0d8a41b153c7d66e057a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kind: 0
+  kind: 1
 --- !u!1 &1454225975
 GameObject:
   m_ObjectHideFlags: 0
@@ -10530,7 +10530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa898092d9b0d8a41b153c7d66e057a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kind: 0
+  kind: 1
 --- !u!1 &1707093149
 GameObject:
   m_ObjectHideFlags: 0
@@ -63340,6 +63340,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7637484046243298132, guid: b531ed09aa5f5a847918ddac98e4bf16, type: 3}
+      propertyPath: sprites.Array.size
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637484046243298132, guid: b531ed09aa5f5a847918ddac98e4bf16, type: 3}
+      propertyPath: 'sprites.Array.data[26]'
+      value: 
+      objectReference: {fileID: -1867711993, guid: e0ba5a7a2ca92e643ad58fc85d241001, type: 3}
+    - target: {fileID: 7637484046243298132, guid: b531ed09aa5f5a847918ddac98e4bf16, type: 3}
+      propertyPath: 'sprites.Array.data[27]'
+      value: 
+      objectReference: {fileID: -872409286, guid: e0ba5a7a2ca92e643ad58fc85d241001, type: 3}
+    - target: {fileID: 7637484046243298132, guid: b531ed09aa5f5a847918ddac98e4bf16, type: 3}
+      propertyPath: 'sprites.Array.data[28]'
+      value: 
+      objectReference: {fileID: -739622932, guid: e0ba5a7a2ca92e643ad58fc85d241001, type: 3}
+    - target: {fileID: 7637484046243298132, guid: b531ed09aa5f5a847918ddac98e4bf16, type: 3}
+      propertyPath: 'sprites.Array.data[29]'
+      value: 
+      objectReference: {fileID: 232473921, guid: e0ba5a7a2ca92e643ad58fc85d241001, type: 3}
+    - target: {fileID: 7637484046243298132, guid: b531ed09aa5f5a847918ddac98e4bf16, type: 3}
+      propertyPath: 'sprites.Array.data[30]'
+      value: 
+      objectReference: {fileID: -715331437, guid: e0ba5a7a2ca92e643ad58fc85d241001, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
