@@ -129,10 +129,9 @@
             "type": "cast-spell"
         },
         "effect": {
-            "description": "gain 10 mana until you move",
+            "description": "gain 10 mana",
             "type": "gain-mana",
-            "amount": "10",
-            "until": "move"
+            "amount": "10"
         }
     },
     {
@@ -143,9 +142,9 @@
             "type": "on-wave-end"
         },
         "effect": {
-            "description": "Gain 15 spellpower until the next wave starts.",
+            "description": "gain 15 spellpower (+5/wave)",
             "type": "gain-spellpower",
-            "amount": "15",
+            "amount": "15 wave 5 * +",
             "until": "on-wave-start"
         }
     }

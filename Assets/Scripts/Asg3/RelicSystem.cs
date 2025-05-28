@@ -54,6 +54,10 @@ public class RelicSystem : MonoBehaviour
         triggerSetups["on-kill"] = SetupOnKillTrigger;
         triggerSetups["drop-spell"] = SetupOnDropTrigger;
         triggerSetups["take-spell"] = SetupOnTakeTrigger;
+        triggerSetups["cast-spell"] = SetupOnCastTrigger;
+        triggerSetups["on-wave-start"] = SetupOnWaveStartTrigger;
+        triggerSetups["on-wave-end"] = SetupOnWaveEndTrigger;
+
     }
 
     private void RegisterEffectHandlers()
@@ -61,6 +65,7 @@ public class RelicSystem : MonoBehaviour
         effectApplications["gain-mana"] = ApplyGainManaEffect;
         effectApplications["gain-spellpower"] = ApplyGainSpellPowerEffect;
         effectApplications["gain-speed"] = ApplyGainSpeedEffect;
+        effectApplications["gain-hp"] = ApplyGainHealthEffect;
         // custom relics effects go here
     }
 
@@ -191,7 +196,43 @@ public class RelicSystem : MonoBehaviour
             player.onMove.AddListener(moveAction);
         }
     }
+    private void SetupOnWaveStartTrigger(RelicTrigger trigger, RelicEffect effect, PlayerController player)
+    {
+        UnityEngine.Events.UnityAction waveStartAction = () =>
+        {
+            if (effectApplications.TryGetValue(effect.type, out var applyEffect))
+            {
+                applyEffect(effect, player);
+                Debug.Log($"Triggered '{trigger.description}' effect: {effect.description}");
+            }
+        };
+        GameManager.Instance.onWaveStart.AddListener(waveStartAction);
+    }
 
+    private void SetupOnWaveEndTrigger(RelicTrigger trigger, RelicEffect effect, PlayerController player)
+    {
+        UnityEngine.Events.UnityAction waveEndAction = () =>
+        {
+            if (effectApplications.TryGetValue(effect.type, out var applyEffect))
+            {
+                applyEffect(effect, player);
+                Debug.Log($"Triggered '{trigger.description}' effect: {effect.description}");
+            }
+        };
+        GameManager.Instance.onWaveEnd.AddListener(waveEndAction);
+    }
+    private void SetupOnCastTrigger(RelicTrigger trigger, RelicEffect effect, PlayerController player)
+    {
+        UnityEngine.Events.UnityAction onCastAction = () =>
+        {
+            if (effectApplications.TryGetValue(effect.type, out var applyEffect))
+            {
+                applyEffect(effect, player);
+                Debug.Log($"Triggered '{trigger.description}' effect: {effect.description}");
+            }
+        };
+        player.spellcaster.onCastSpell.AddListener(onCastAction);
+    }
     private void SetupOnTakeTrigger(RelicTrigger trigger, RelicEffect effect, PlayerController player)
     {
         UnityEngine.Events.UnityAction takeAction = () =>
@@ -299,6 +340,12 @@ public class RelicSystem : MonoBehaviour
             player.SetBonusSpellpower(amount);
             Debug.Log($"Applied effect: Gained {amount} spell power");
         }
+    }
+    private void ApplyGainHealthEffect(RelicEffect effect, PlayerController player)
+    {
+        int amount = EvaluateAmount(effect.amount);
+        player.GainHealth(amount);
+        Debug.Log($"Applied effect: Gained {amount} Health");
     }
 
     private int EvaluateAmount(string amountStr)
