@@ -26,6 +26,8 @@ public class SpellAttributes
     public int? chainCount;  // Number of chain jumps
     public float? chainDamageDecay; // Damage reduction per chain
     public float? chainRange; // Maximum range for chaining
+    public float? critChance;  // Chance to critically strike (0.0 to 1.0)  
+    public float? critMultiplier; // Damage multiplier for critical hits
 
     // Modifiers for various properties
     public List<ValueModifier> damageModifiers = new List<ValueModifier>();

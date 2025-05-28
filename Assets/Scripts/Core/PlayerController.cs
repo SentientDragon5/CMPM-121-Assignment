@@ -71,38 +71,25 @@ public class PlayerController : MonoBehaviour
         // Add new spells here
         SpellBuilder spellBuilder = new SpellBuilder();
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_bolt", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_spray", spellcaster));
-        //spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
-        //spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_blast", spellcaster));
 
         // testing modifiers here
 
-        // Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
-        // Spell swiftBolt = new SpeedModifier(arcaneBolt, spellcaster);
-        // spellcaster.AddSpell(swiftBolt);
+        //spellcaster.AddSpell(spellBuilder.BuildSpell("frost_shard", spellcaster));
 
-        // Spell arcaneSpray = spellBuilder.BuildSpell("arcane_spray", spellcaster);
-        // spellcaster.AddSpell(arcaneSpray);
+        // Test some modifier combinations
+        // Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
+        // Spell slugBolt = new FreezeModifier(arcaneBolt, spellcaster);
+        // spellcaster.AddSpell(slugBolt);
 
         // Spell magicMissile = spellBuilder.BuildSpell("magic_missile", spellcaster);
-        // Spell splitMissile = new SplitterModifier(magicMissile, spellcaster);
-        // spellcaster.AddSpell(splitMissile);
+        // Spell wavyMissile = new RicochetModifier(magicMissile, spellcaster);
+        // spellcaster.AddSpell(wavyMissile);
 
-        // // Spell arcaneBlast = spellBuilder.BuildSpell("arcane_blast", spellcaster);
-        // // Spell chaosArcaneBlast = new ChaosModifier(arcaneBlast, spellcaster);
-        // // spellcaster.AddSpell(chaosArcaneBlast);
-
-        // Spell chainLightning = spellBuilder.BuildSpell("chain_lightning", spellcaster);
-        // Spell chainLightingDoubler = new DoublerModifier(chainLightning, spellcaster);
-        // spellcaster.AddSpell(chainLightingDoubler);
-
-        // Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
-        // Spell rapidBolt = new RapidModifier(arcaneBolt, spellcaster);
-        // spellcaster.AddSpell(rapidBolt);
-
-        Spell arcaneBolt = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
-        Spell hugeBolt = new HugeModifier(arcaneBolt, spellcaster);
-        spellcaster.AddSpell(hugeBolt);
+        // Spell arcaneSpray = spellBuilder.BuildSpell("arcane_spray", spellcaster);
+        // Spell freezeSpray = new FreezeModifier(arcaneSpray, spellcaster);
+        // spellcaster.AddSpell(freezeSpray);
 
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);

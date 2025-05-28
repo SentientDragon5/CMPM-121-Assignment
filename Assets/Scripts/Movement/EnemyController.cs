@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,6 +13,11 @@ public class EnemyController : MonoBehaviour
     public bool dead;
 
     public float last_attack;
+
+    // Slow effect variables
+    private bool isSlowed = false;
+    private float slowFactor = 1f; 
+    private Coroutine slowCoroutine;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,7 +36,8 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            GetComponent<Unit>().movement = direction.normalized * speed;
+            float currentSpeed = speed * slowFactor;
+            GetComponent<Unit>().movement = direction.normalized * currentSpeed;
         }
     }
 
@@ -45,6 +53,31 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void ApplySlow(float duration, float factor)
+    {
+        if (slowCoroutine != null)
+        {
+            StopCoroutine(slowCoroutine);
+        }
+
+        if (!isSlowed || factor < slowFactor)
+        {
+            slowFactor = factor;
+        }
+
+        isSlowed = true;
+        slowCoroutine = StartCoroutine(SlowEffect(duration));
+    }
+
+    private IEnumerator SlowEffect(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        
+        // Remove slow effect
+        isSlowed = false;
+        slowFactor = 1f;
+        slowCoroutine = null;
+    }
 
     public void Die()
     {

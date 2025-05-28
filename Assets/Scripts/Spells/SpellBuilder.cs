@@ -42,7 +42,8 @@ public class SpellBuilder
 
                 // Determine if it's a base spell or a modifier based on name pattern
                 if (key == "damage_amp" || key == "speed_amp" || key == "doubler" ||
-                    key == "splitter" || key == "chaos" || key == "homing" || key == "rapid" || key == "huge")
+                    key == "splitter" || key == "chaos" || key == "homing" || key == "rapid" || key == "huge" || key == "slug" || key == "wavy" || 
+                    key == "ricochet" || key == "freeze")
                 {
                     modifierSpellKeys.Add(key);
                 }
@@ -148,6 +149,8 @@ public class SpellBuilder
                 return new ArcaneBlast(owner);
             case "chain_lightning":
                 return new ChainLightning(owner);
+            case "frost_shard":
+                return new FrostShard(owner);
             default:
                 Debug.LogError($"Unknown base spell key: {key}");
                 return new ArcaneBolt(owner); // currently working spell
@@ -175,6 +178,12 @@ public class SpellBuilder
                 return new RapidModifier(baseSpell, owner);
             case "huge":
                 return new HugeModifier(baseSpell, owner);
+            case "ricochet":
+                return new RicochetModifier(baseSpell, owner);
+            case "slug":
+                return new SlugModifier(baseSpell, owner);
+            case "freeze":
+                return new FreezeModifier(baseSpell, owner);
             default:
                 Debug.LogError($"Unknown modifier key: {key}");
                 return baseSpell;

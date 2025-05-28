@@ -54,6 +54,14 @@ public class ProjectileManager : MonoBehaviour
         {
             return new SpiralingProjectileMovement(speed);
         }
+        if (name == "wavy")
+        {
+            return new WavyProjectileMovement(speed);
+        }
+        if (name == "ricochet")
+        {
+            return new RicochetProjectileMovement(speed);
+        }
         return null;
     }
 

@@ -137,20 +137,15 @@
             "damage_multiplier": "2"
         }
     },
-    "spiral": {
-        "name": "spiraling",
-        "description": "The projectile spins rapidly, following a spiral path.",
-        "projectile_trajectory": "spiraling"
-    },
     "ricochet": {
         "name": "ricochet",
         "description": "The projectile bounces off one wall before disappearing.",
         "projectile_trajectory": "ricochet"
     },
     "freeze": {
-    "name": "freeze",
-    "description": "Slows enemies hit by the projectile.",
-    "damage_multiplier": "0.85",
-    "mana_multiplier": "1.1"
+        "name": "freeze",
+        "description": "Slows enemies hit by the projectile.",
+        "damage_multiplier": "0.85",
+        "mana_multiplier": "1.1"
     }
 }
