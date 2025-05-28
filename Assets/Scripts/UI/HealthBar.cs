@@ -30,7 +30,7 @@ public class HealthBar : MonoBehaviour
     {
         this.hp = hp;
         float perc = (hp.hp * 1.0f / hp.max_hp) + 0.01f;
-        if (perc == float.NaN)
+        if (perc != perc)
         {
             perc = 0;
             Debug.LogWarning("There was a NaN in an HP");
