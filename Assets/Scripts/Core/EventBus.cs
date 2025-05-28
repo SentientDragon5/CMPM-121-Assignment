@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 public class EventBus
@@ -20,7 +21,6 @@ public class EventBus
     public event Action OnMove;
     public event Action OnKill;
     public event Action OnCastSpell;
-
     public void DoDamage(Vector3 where, Damage dmg, Hittable target)
     {
         OnDamage?.Invoke(where, dmg, target);

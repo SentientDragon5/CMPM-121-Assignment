@@ -46,6 +46,8 @@ public class GameManager
     public int totalDamageTaken;
     public int wave;
     public UnityEvent onNextWave = new();
+    public UnityEvent onWaveStart = new();
+    public UnityEvent onWaveEnd = new();
 
     public void AddEnemy(GameObject enemy)
     {

@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     {
         spellcaster.SetBonusSpellPower(bonus);
     }
+    public void GainHealth(int amount)
+    {
+        hp.hp += amount;
+    }
     public void GainMana(int amount) => spellcaster.GainMana(amount);
 
     public void OnTest(int a = 0) => Debug.Log(a);
@@ -113,7 +117,6 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Started level with 5 spells. Press 1-5 to switch between them.");
 
     }
-
 
     public UnityEvent onDropSpell = new();
     public UnityEvent onTakeSpell = new();
