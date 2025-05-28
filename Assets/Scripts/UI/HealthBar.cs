@@ -33,7 +33,7 @@ public class HealthBar : MonoBehaviour
         if (perc != perc)
         {
             perc = 0;
-            Debug.LogWarning("There was a NaN in an HP");
+            Debug.LogWarning("Maximum HP is zero or HP divided by max HP evaluates to NaN.");
         }
         perc = Mathf.Clamp01(perc);
 
