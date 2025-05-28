@@ -126,6 +126,24 @@ public class RelicSystem : MonoBehaviour
         availableRelics.RemoveAll(r => r.name == relic.name);
     }
 
+    public void ActivateRelicByName(string name)
+    {
+        Relic relic = null;
+        Debug.LogWarning("Adding Relic by name. May cause erroneous behavior.");
+        
+        //Debug.Log(availableRelics);
+        foreach (var activeRelic in availableRelics)
+        {
+            //Debug.Log(activeRelic.name);
+            if (activeRelic.name == name)
+                relic = activeRelic;
+        }
+        if (relic == null)
+            Debug.LogError($"Relic: {name} not found in relic data. Be sure relic system is initialized before calling this method.");
+        else
+            ActivateRelic(relic);
+    }
+
     public int RelicCount
     {
         get
