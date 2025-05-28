@@ -184,8 +184,8 @@ public class SpellBuilder
                 return new SlugModifier(baseSpell, owner);
             case "freeze":
                 return new FreezeModifier(baseSpell, owner);
-            //case "wavy":
-            //    return new FreezeModifier(baseSpell, owner);
+            case "wavy":
+                return new WavyModifier(baseSpell, owner);
             default:
                 Debug.LogError($"Unknown modifier key: {key}");
                 return baseSpell;
