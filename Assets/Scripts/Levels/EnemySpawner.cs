@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         level = 0;
-        wave = 1; // waves starts at 1
+        wave = 0; // waves starts at 0
         var levels = DataLoader.Instance.levels;
         var yPos = 130;
         foreach (var level in levels)
@@ -141,27 +141,35 @@ public class EnemySpawner : MonoBehaviour
 
     const float spawnDelay = 0.5f;
 
-    IEnumerator SpawnEnemy(Enemy enemyInfo, string location, bool delayed, int? hpOverride = null, int? damageOverride = null, int? speedOverride = null)
+    IEnumerator SpawnEnemy(Enemy enemyInfo, string location, bool delayed, int? hpOverride=null, int? damageOverride=null, int? speedOverride=null)
     {
         SpawnPoint spawn_point = location == "random" ? spawnPoints[Random.Range(0, spawnPoints.Length)] : FindSpawnPoint(location);
         Vector2 offset = Random.insideUnitCircle * 1.8f;
-
+                
         Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
-        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity, enemyParent);
-        new_enemy.name = "Enemy (" + enemyInfo.name + ")";
-
-        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(enemyInfo.sprite);
-        EnemyController en = new_enemy.GetComponent<EnemyController>();
-
-        Debug.Log("Spawning: " + enemyInfo.name + " with hp: " + hpOverride);
-        en.hp = new Hittable(hpOverride == null ? enemyInfo.hp : (int)hpOverride, Hittable.Team.MONSTERS, new_enemy);
-        en.speed = speedOverride == null ? enemyInfo.speed : (int)speedOverride;
-        en.damage = damageOverride == null ? enemyInfo.damage : (int)damageOverride;
-        GameManager.Instance.AddEnemy(new_enemy);
+        SpawnEnemyAtPosition(enemyInfo, initial_position, hpOverride, damageOverride, speedOverride);
 
         if (delayed)
             yield return new WaitForSeconds(spawnDelay);
         else
             yield return null;
+    }
+
+    public GameObject SpawnEnemyAtPosition(Enemy enemyInfo, Vector3 initial_position, int? hpOverride=null, int? damageOverride=null, int? speedOverride=null)
+    {
+        GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity, enemyParent);
+        new_enemy.name = "Enemy ("+ enemyInfo.name +")";
+
+        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(enemyInfo.sprite);
+        EnemyController en = new_enemy.GetComponent<EnemyController>();
+        en.hp = new Hittable(hpOverride==null ? enemyInfo.hp : (int)hpOverride, Hittable.Team.MONSTERS, new_enemy);
+        en.speed = speedOverride==null? enemyInfo.speed : (int)speedOverride;
+        en.damage = damageOverride ==null? enemyInfo.damage : (int)damageOverride;
+        en.child = enemyInfo.child;
+        en.childNum = enemyInfo.childNum;
+        en.childWhen = enemyInfo.childWhen;
+        GameManager.Instance.AddEnemy(new_enemy);
+
+        return new_enemy;
     }
 }
