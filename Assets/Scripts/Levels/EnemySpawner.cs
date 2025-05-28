@@ -94,6 +94,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(1);
             GameManager.Instance.countdown--;
         }
+        GameManager.Instance.onWaveStart.Invoke();
         GameManager.Instance.state = GameManager.GameState.INWAVE;
         var levels = DataLoader.Instance.levels;
         var spawns = levels[level].spawns;
@@ -135,6 +136,7 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitWhile(() => GameManager.Instance.enemy_count > 0);
         GameManager.Instance.state = GameManager.GameState.WAVEEND;
+        GameManager.Instance.onWaveEnd.Invoke();
     }
 
     const float spawnDelay = 0.5f;

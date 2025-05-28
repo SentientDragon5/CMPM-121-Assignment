@@ -172,14 +172,7 @@
    {   
        "name": "Debug",
        "spawns": [
-            {
-                "enemy": "great slime",
-                "count": "wave",
-                "hp": "base 10 wave * +",
-                "damage": "base",
-                "sequence": [1],
-                "location": "random"
-            }
+
         ]
    }
 ]
