@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
+    public PlayerMovement playerMovement;
     public Hittable hp;
     public HealthBar healthui;
     public ManaBar manaui;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     //async Task Start()
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         unit = GetComponent<Unit>();
         GameManager.Instance.player = gameObject;
         GameManager.Instance.onNextWave.AddListener(OnNextWave);
@@ -237,7 +239,9 @@ public class PlayerController : MonoBehaviour
         Vector2 mouseScreen = Mouse.current.position.value;
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
         mouseWorld.z = 0;
-        StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
+        //StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
+        // Change this to come from the hand and go torward camera forward.
+        StartCoroutine(spellcaster.Cast(transform.position + Vector3.up, transform.forward));
     }
 
     void OnMove(InputValue value)

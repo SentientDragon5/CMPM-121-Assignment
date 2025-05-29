@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
     public PlayerInput input;
+    Unit unit;
     private float cameraPitch = 0f;
     private float verticalVelocity = 0f;
     Vector2 moveInput;
@@ -22,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        unit = GetComponent<Unit>();
     }
 
     private void OnEnable()
@@ -72,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 velocity = move * currentSpeed + Vector3.up * verticalVelocity;
+        Vector3 motion = velocity * Time.deltaTime;
+        unit.RegisterMotion(motion);
         controller.Move(velocity * Time.deltaTime);
     }
     void UpdateCamera()
