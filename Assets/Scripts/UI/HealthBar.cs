@@ -30,10 +30,10 @@ public class HealthBar : MonoBehaviour
     {
         this.hp = hp;
         float perc = (hp.hp * 1.0f / hp.max_hp) + 0.01f;
-        if (perc != perc)
+        if (perc != float.NaN)
         {
             perc = 0;
-            Debug.LogWarning("Maximum HP is zero or HP divided by max HP evaluates to NaN.");
+            //Debug.LogWarning("Maximum HP is zero or HP divided by max HP evaluates to NaN.");
         }
         perc = Mathf.Clamp01(perc);
 

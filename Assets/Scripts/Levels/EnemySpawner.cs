@@ -146,7 +146,7 @@ public class EnemySpawner : MonoBehaviour
         SpawnPoint spawn_point = location == "random" ? spawnPoints[Random.Range(0, spawnPoints.Length)] : FindSpawnPoint(location);
         Vector2 offset = Random.insideUnitCircle * 1.8f;
                 
-        Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, offset.y, 0);
+        Vector3 initial_position = spawn_point.transform.position + new Vector3(offset.x, 0, offset.y);
         SpawnEnemyAtPosition(enemyInfo, initial_position, hpOverride, damageOverride, speedOverride);
 
         if (delayed)
