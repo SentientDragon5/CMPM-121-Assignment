@@ -23,7 +23,13 @@ public class EnemyController : MonoBehaviour
     private bool isSlowed = false;
     private float slowFactor = 1f; 
     private Coroutine slowCoroutine;
+    public void Init(Enemy enemyInfo)
+    {
+        
+        spriteRenderer.sprite = GameManager.Instance.enemySpriteManager.Get(enemyInfo.sprite);
+    }
 
+    public SpriteRenderer spriteRenderer;
     EnemyMovement enemyMovement;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

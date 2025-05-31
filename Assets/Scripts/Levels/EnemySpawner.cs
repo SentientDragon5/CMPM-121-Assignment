@@ -160,8 +160,8 @@ public class EnemySpawner : MonoBehaviour
         GameObject new_enemy = Instantiate(enemy, initial_position, Quaternion.identity, enemyParent);
         new_enemy.name = "Enemy ("+ enemyInfo.name +")";
 
-        new_enemy.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.enemySpriteManager.Get(enemyInfo.sprite);
         EnemyController en = new_enemy.GetComponent<EnemyController>();
+        en.Init(enemyInfo);
         en.hp = new Hittable(hpOverride==null ? enemyInfo.hp : (int)hpOverride, Hittable.Team.MONSTERS, new_enemy);
         en.speed = speedOverride==null? enemyInfo.speed : (int)speedOverride;
         en.damage = damageOverride ==null? enemyInfo.damage : (int)damageOverride;

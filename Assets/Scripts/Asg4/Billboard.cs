@@ -9,6 +9,8 @@ public class Billboard : MonoBehaviour
     public bool invert = false;
     void LateUpdate()
     {
+        if (Camera.main == null) return;
+        
         Vector3 delta = transform.position - Camera.main.transform.position;
         if (yBillboard) delta.y = 0;
         if (invert) delta *= -1;

@@ -14,6 +14,11 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        agent.SetDestination(GameManager.Instance.player.transform.position);
+        if (agent.navMeshOwner)
+        {
+
+            agent.SetDestination(GameManager.Instance.player.transform.position);
+        }
+        else Debug.LogWarning("No navmesh owner");
     }
 }
