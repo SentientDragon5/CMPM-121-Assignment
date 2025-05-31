@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        
+        if (input == null) return;
         input!.actions["Attack"].performed -= _ => OnFire();
     }
 

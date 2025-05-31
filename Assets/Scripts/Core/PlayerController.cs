@@ -63,10 +63,12 @@ public class PlayerController : MonoBehaviour
         unit = GetComponent<Unit>();
         GameManager.Instance.player = gameObject;
         GameManager.Instance.onNextWave.AddListener(OnNextWave);
+        playerMovement.enabled = false;
     }
 
     public void StartLevel()
     {
+        playerMovement.enabled = true;
         spellcaster = new SpellCaster(125, 8, Hittable.Team.PLAYER);
         StartCoroutine(spellcaster.ManaRegeneration());
 
