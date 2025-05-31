@@ -23,9 +23,12 @@ public class EnemyController : MonoBehaviour
     private bool isSlowed = false;
     private float slowFactor = 1f; 
     private Coroutine slowCoroutine;
+
+    EnemyMovement enemyMovement;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        enemyMovement = GetComponent<EnemyMovement>();
         target = GameManager.Instance.player.transform;
         hp.OnDeath += Die;
         EventBus.Instance.OnDamage += OnDamage;
@@ -45,7 +48,7 @@ public class EnemyController : MonoBehaviour
         {
             float currentSpeed = speed * slowFactor;
             GetComponent<Unit>().movement = direction.normalized * currentSpeed;
-            Unstuck();
+            //Unstuck();
         }
     }
 
