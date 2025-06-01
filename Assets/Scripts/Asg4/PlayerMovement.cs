@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        
+
         if (input == null) return;
         input!.actions["Attack"].performed -= _ => OnFire();
     }
@@ -96,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Attack Spell!");
         animator.CrossFade("Cast1", 0.1f);
+        GetComponent<PlayerController>().OnAttack(null);
     }
 
     private void UpdateAnimator()

@@ -6,7 +6,7 @@ public class RicochetProjectileMovement : ProjectileMovement
 
     public RicochetProjectileMovement(float speed) : base(speed) { }
 
-    public override void Movement(Transform transform)
+    public override void Movement(Transform transform, Vector3 direction)
     {
         transform.Translate(Vector3.right * speed * Time.deltaTime);
     }

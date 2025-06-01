@@ -8,7 +8,7 @@ public class WavyProjectileMovement : ProjectileMovement
         // start = Time.time;
     }
 
-    public override void Movement(Transform transform)
+    public override void Movement(Transform transform, Vector3 direction)
     {
         // transform.Translate(new Vector3(speed * Time.deltaTime, Mathf.Sin(Time.time * 15) * 1, 0), Space.Self);
         transform.Translate(new Vector3(speed * Time.deltaTime, Mathf.Sin(Time.time * 20) / 15, 0), Space.Self);

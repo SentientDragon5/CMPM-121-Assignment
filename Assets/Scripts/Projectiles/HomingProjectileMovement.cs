@@ -10,17 +10,17 @@ public class HomingProjectileMovement : ProjectileMovement
         turn_rate = 0.25f;
     }
 
-    public override void Movement(Transform transform)
+    public override void Movement(Transform transform, Vector3 direction)
     {
         if (float.IsNaN(angle))
         {
-            Vector3 direction = transform.rotation * new Vector3(1, 0, 0);
+            //Vector3 direction = transform.rotation * new Vector3(1, 0, 0);
             angle = Mathf.Atan2(direction.y, direction.x);
         }
         GameObject closest = GameManager.Instance.GetClosestEnemy(transform.position);
         if (closest == null)
         {
-            Vector3 direction = transform.rotation * new Vector3(1, 0, 0);
+            //Vector3 direction = transform.rotation * new Vector3(1, 0, 0);
             angle = Mathf.Atan2(direction.y, direction.x);
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0), Space.Self);
         }
@@ -42,7 +42,7 @@ public class HomingProjectileMovement : ProjectileMovement
                 angle += Mathf.Clamp(da, -turn_rate * Mathf.Deg2Rad, turn_rate * Mathf.Deg2Rad);
 
             }
-            Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+            Vector3 dir = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0); // fix this
             transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
         }
     }

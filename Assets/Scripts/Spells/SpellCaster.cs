@@ -95,6 +95,7 @@ public class SpellCaster
 
     public IEnumerator Cast(Vector3 where, Vector3 target)
     {
+        Debug.Log("Casted");
         if (activeSpell != null && mana >= activeSpell.GetManaCost() && activeSpell.IsReady())
         {
             mana -= activeSpell.GetManaCost();

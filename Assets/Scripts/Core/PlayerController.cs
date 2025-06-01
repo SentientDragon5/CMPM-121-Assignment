@@ -233,20 +233,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnAttack(InputValue value)
+    public void OnAttack(InputValue value)
     {
         if (GameManager.Instance.state == GameManager.GameState.PREGAME ||
         GameManager.Instance.state == GameManager.GameState.GAMEOVER ||
         GameManager.Instance.state == GameManager.GameState.VICTORY) return;
         Vector2 mouseScreen = Mouse.current.position.value;
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
-        mouseWorld.z = 0;
+        //Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
+        //mouseWorld.z = 0;
         //StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
         // Change this to come from the hand and go torward camera forward.
-        StartCoroutine(spellcaster.Cast(transform.position + Vector3.up, transform.forward));
+        print("OnAttack " +  Camera.main.gameObject.name);
+        Debug.DrawRay(transform.position + Vector3.up, Camera.main.transform.forward);
+        StartCoroutine(spellcaster.Cast(transform.position + Vector3.up, Camera.main.transform.forward));
     }
 
-    void OnMove(InputValue value)
+    public void OnMove(InputValue value)
     {
         if (GameManager.Instance.state == GameManager.GameState.PREGAME ||
         GameManager.Instance.state == GameManager.GameState.GAMEOVER ||
