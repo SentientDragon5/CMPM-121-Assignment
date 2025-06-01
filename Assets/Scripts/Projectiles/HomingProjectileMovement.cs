@@ -2,48 +2,31 @@ using UnityEngine;
 
 public class HomingProjectileMovement : ProjectileMovement
 {
-    float angle;
     float turn_rate;
+
     public HomingProjectileMovement(float speed) : base(speed)
     {
-        angle = float.NaN;
-        turn_rate = 0.25f;
+        // turnRate in degrees per second, convert to radians per second
+        turn_rate = 90f * Mathf.Deg2Rad;
     }
 
-    public override void Movement(Transform transform, Vector3 direction)
+    public override void Movement(Transform transform, Vector3 unusedDirection)
     {
-        if (float.IsNaN(angle))
-        {
-            //Vector3 direction = transform.rotation * new Vector3(1, 0, 0);
-            angle = Mathf.Atan2(direction.y, direction.x);
-        }
-        GameObject closest = GameManager.Instance.GetClosestEnemy(transform.position);
-        if (closest == null)
-        {
-            //Vector3 direction = transform.rotation * new Vector3(1, 0, 0);
-            angle = Mathf.Atan2(direction.y, direction.x);
-            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0), Space.Self);
-        }
-        else
-        {
-            Vector3 new_direction = (closest.transform.position - transform.position).normalized;
-            float new_angle = Mathf.Atan2(new_direction.y, new_direction.x);
-            if (Mathf.Abs(angle - new_angle) > Mathf.Epsilon)
-            {
-                float da = new_angle - angle;
-                if (da > Mathf.PI)
-                {
-                    da -= 2 * Mathf.PI;
-                }
-                if (da < -Mathf.PI)
-                {
-                    da += 2 * Mathf.PI;
-                }
-                angle += Mathf.Clamp(da, -turn_rate * Mathf.Deg2Rad, turn_rate * Mathf.Deg2Rad);
+        GameObject target = GameManager.Instance.GetClosestEnemy(transform.position);
 
-            }
-            Vector3 dir = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0); // fix this
-            transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
+        Vector3 currentDirection = transform.forward;
+        Vector3 newDirection = currentDirection;
+
+        if (target != null)
+        {
+            Vector3 toTarget = (target.transform.position - transform.position).normalized;
+            newDirection = Vector3.RotateTowards(currentDirection, toTarget, turn_rate * Time.deltaTime, 0.0f);
         }
+
+        // Apply new rotation
+        transform.rotation = Quaternion.LookRotation(newDirection);
+
+        // Move forward
+        transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
     }
 }

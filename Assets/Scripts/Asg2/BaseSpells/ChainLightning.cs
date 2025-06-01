@@ -14,7 +14,7 @@ public class ChainLightning : Spell
         attributes = new SpellAttributes();
     }
 
-    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+    public override IEnumerator Cast(Vector3 spawnPos, Vector3 direction, Hittable.Team team)
     {
         this.team = team;
         last_cast = Time.time;
@@ -22,8 +22,8 @@ public class ChainLightning : Spell
         GameManager.Instance.projectileManager.CreateProjectile(
             attributes.projectileSprite,
             GetTrajectory(),
-            where,
-            target - where,
+            spawnPos,
+            direction,
             GetSpeed(),
             (hit, pos) => OnInitialHit(hit, pos),
             lifetime,

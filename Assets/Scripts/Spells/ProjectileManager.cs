@@ -31,13 +31,13 @@ public class ProjectileManager : MonoBehaviour
     //     new_projectile.GetComponent<ProjectileController>().OnHit += onHit;
     //     new_projectile.GetComponent<ProjectileController>().SetLifetime(lifetime);
     // }
-    public void CreateProjectile(int which, string trajectory, Vector3 where, Vector3 direction, float speed, Action<Hittable, Vector3> onHit, float lifetime, float size)
+    public void CreateProjectile(int which, string trajectory, Vector3 spawnPos, Vector3 direction, float speed, Action<Hittable, Vector3> onHit, float lifetime, float size)
     {
         print("Create projectile called");
-        Debug.DrawRay(where, direction, Color.magenta, 0.2f);
+        Debug.DrawRay(spawnPos, direction, Color.magenta, 0.2f);
         // var a = new GameObject("MARKER");
-        // a.transform.position = where;
-        GameObject new_projectile = Instantiate(projectiles[which], where + direction.normalized * 1.1f, Quaternion.identity);
+        // a.transform.position = spawnPos;
+        GameObject new_projectile = Instantiate(projectiles[which], spawnPos + direction.normalized * 1.1f, Quaternion.identity);
         new_projectile.GetComponent<ProjectileController>().movement = MakeMovement(trajectory, speed);
         new_projectile.GetComponent<ProjectileController>().OnHit += onHit;
         new_projectile.GetComponent<ProjectileController>().SetLifetime(lifetime);

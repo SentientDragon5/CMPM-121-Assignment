@@ -93,13 +93,13 @@ public class SpellCaster
         }
     }
 
-    public IEnumerator Cast(Vector3 where, Vector3 target)
+    public IEnumerator Cast(Vector3 spawnPos, Vector3 direction)
     {
         Debug.Log("Casted");
         if (activeSpell != null && mana >= activeSpell.GetManaCost() && activeSpell.IsReady())
         {
             mana -= activeSpell.GetManaCost();
-            yield return activeSpell.Cast(where, target, team);
+            yield return activeSpell.Cast(spawnPos, direction, team);
         }
         onCastSpell.Invoke();
         yield break;

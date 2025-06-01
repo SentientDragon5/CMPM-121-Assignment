@@ -243,9 +243,12 @@ public class PlayerController : MonoBehaviour
         //mouseWorld.z = 0;
         //StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
         // Change this to come from the hand and go torward camera forward.
-        print("OnAttack " +  Camera.main.gameObject.name);
-        Debug.DrawRay(transform.position + Vector3.up, Camera.main.transform.forward);
-        StartCoroutine(spellcaster.Cast(transform.position + Vector3.up, Camera.main.transform.forward));
+
+        // print("OnAttack " + Camera.main.gameObject.name);
+        Vector3 spawnPos = transform.position + Vector3.up;
+        Vector3 direction = Camera.main.transform.forward;
+        Debug.DrawRay(spawnPos, direction);
+        StartCoroutine(spellcaster.Cast(spawnPos, direction));
     }
 
     public void OnMove(InputValue value)

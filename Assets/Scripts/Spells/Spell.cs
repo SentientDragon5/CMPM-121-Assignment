@@ -69,15 +69,15 @@ public abstract class Spell
     {
         return (last_cast + GetCooldown() < Time.time);
     }
-    public virtual IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+    public virtual IEnumerator Cast(Vector3 spawnPos, Vector3 direction, Hittable.Team team)
     {
         this.team = team;
         last_cast = Time.time;
         GameManager.Instance.projectileManager.CreateProjectile(
             attributes.projectileSprite,
             GetTrajectory(),
-            where,
-            target - where,
+            spawnPos,
+            direction,
             GetSpeed(),
             OnHit,
             lifetime,
