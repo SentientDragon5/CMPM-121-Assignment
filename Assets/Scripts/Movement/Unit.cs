@@ -42,15 +42,15 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void Move(Vector2 ds)
-    {
-        List<RaycastHit2D> hits = new List<RaycastHit2D>();
-        int n = GetComponent<Rigidbody2D>().Cast(ds, hits, ds.magnitude * 2);
-        if (n == 0)
-        {
-            transform.Translate(ds);
-        }
-    }
+    // public void Move(Vector2 ds)
+    // {
+    //     List<RaycastHit2D> hits = new List<RaycastHit2D>();
+    //     int n = GetComponent<Rigidbody2D>().Cast(ds, hits, ds.magnitude * 2);
+    //     if (n == 0)
+    //     {
+    //         transform.Translate(ds);
+    //     }
+    // }
 
 
 }

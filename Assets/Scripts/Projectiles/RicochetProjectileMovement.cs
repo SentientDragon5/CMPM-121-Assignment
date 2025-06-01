@@ -11,14 +11,13 @@ public class RicochetProjectileMovement : ProjectileMovement
         transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
 
-    public bool TryBounce(Collision2D collision, Transform transform)
+    public bool TryBounce(Collision collision, Transform transform)
     {
         if (bouncesRemaining <= 0) return false;
 
-        ContactPoint2D contact = collision.contacts[0];
-        Vector3 newDirection = Vector3.Reflect(transform.right, contact.normal);
-        float angle = Mathf.Atan2(newDirection.y, newDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        ContactPoint contact = collision.contacts[0];
+        Vector3 newDirection = Vector3.Reflect(transform.forward, contact.normal);
+        transform.rotation = Quaternion.LookRotation(newDirection, Vector3.up);
 
         bouncesRemaining--;
         return true;

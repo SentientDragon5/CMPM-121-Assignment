@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 7581343317206036326}
   m_Layer: 0
   m_Name: Enemy3D
-  m_TagString: Untagged
+  m_TagString: unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
