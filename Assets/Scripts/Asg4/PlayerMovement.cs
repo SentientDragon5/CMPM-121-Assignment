@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform cameraTransform;
 
     private CharacterController controller;
-    private Animator animator;
+    private Animator anim;
     public PlayerInput input;
     Unit unit;
     private float cameraPitch = 0f;
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         unit = GetComponent<Unit>();
     }
 
@@ -95,15 +95,17 @@ public class PlayerMovement : MonoBehaviour
     private void OnFire()
     {
         Debug.Log("Attack Spell!");
-        animator.CrossFade("Cast1", 0.1f);
+        anim.CrossFade("Cast1", 0.1f);
         GetComponent<PlayerController>().OnAttack(null);
     }
 
     private void UpdateAnimator()
     {
-        animator.SetFloat("forward", moveInput.y);
-        animator.SetFloat("right", moveInput.x);
-        animator.SetFloat("up", controller.velocity.y);
-        animator.SetBool("grounded", controller.isGrounded);
+        anim.SetFloat("forward", moveInput.y);
+        anim.SetFloat("right", moveInput.x);
+        anim.SetFloat("up", controller.velocity.y);
+        anim.SetBool("grounded", controller.isGrounded);
+
+        
     }
 }
