@@ -246,7 +246,7 @@ public class PlayerController : MonoBehaviour
 
         // print("OnAttack " + Camera.main.gameObject.name);
         Vector3 spawnPos = transform.position + Vector3.up;
-        Vector3 direction = Camera.main.transform.forward * 100 - spawnPos;
+        Vector3 direction = Camera.main.transform.forward;// * 100 - spawnPos;// hubris.
         direction.Normalize();
         Debug.DrawRay(spawnPos, direction);
         StartCoroutine(spellcaster.Cast(spawnPos, direction));

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,12 @@ public class PlayerMovement : MonoBehaviour
     private float cameraPitch = 0f;
     private float verticalVelocity = 0f;
     Vector2 moveInput;
+    public float fov = 60;
+    public float sprintFovMult = 1.5f;
+    public float aimFovMult = 0.25f;
+    public float fovSmoothing = 2f;
+    public float aimMoveMult = 0.5f;
+    public bool Aiming => input!.actions["Aiming"].IsPressed();
 
     private void Awake()
     {
@@ -54,7 +61,12 @@ public class PlayerMovement : MonoBehaviour
     {
         // Sprint
         bool isSprinting = input.actions["Sprint"] != null && input.actions["Sprint"].ReadValue<float>() > 0.1f;
+
+        float fovGoal = fov * (Aiming ? aimFovMult : isSprinting ? sprintFovMult : 1);
+        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fovGoal, Time.deltaTime * fovSmoothing);
+
         float currentSpeed = isSprinting ? moveSpeed * sprintMultiplier : moveSpeed;
+        currentSpeed = Aiming ? moveSpeed * aimMoveMult : currentSpeed;
 
         // Movement
         moveInput = input.actions["Move"].ReadValue<Vector2>();
