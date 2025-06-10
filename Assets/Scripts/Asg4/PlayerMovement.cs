@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public float aimFovMult = 0.25f;
     public float fovSmoothing = 2f;
     public float aimMoveMult = 0.5f;
+    public float aimSensitivityMult = 0.5f;
     public bool Aiming => input!.actions["Aiming"].IsPressed();
 
     private void Awake()
@@ -104,8 +105,8 @@ public class PlayerMovement : MonoBehaviour
     void UpdateCamera()
     {
         Vector2 lookInput = input.actions["Look"].ReadValue<Vector2>();
-        float mouseX = lookInput.x * lookSensitivity;
-        float mouseY = lookInput.y * lookSensitivity;
+        float mouseX = lookInput.x * lookSensitivity * (Aiming ? aimSensitivityMult : 1);
+        float mouseY = lookInput.y * lookSensitivity * (Aiming ? aimSensitivityMult : 1);
 
         cameraPitch -= mouseY;
         cameraPitch = Mathf.Clamp(cameraPitch, -90f, 90f);

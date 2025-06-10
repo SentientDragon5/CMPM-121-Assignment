@@ -33277,6 +33277,7 @@ MonoBehaviour:
   aimFovMult: 0.5
   fovSmoothing: 2
   aimMoveMult: 0.75
+  aimSensitivityMult: 0.2
   moveAnimSmoothTime: 10
 --- !u!1001 &1732632995
 PrefabInstance:
