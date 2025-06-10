@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!Cursor.visible) return;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         input.actions["Attack"].performed += _ => OnFire();
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
+        if (Cursor.visible) return;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
@@ -52,6 +54,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.state != GameManager.GameState.COUNTDOWN && GameManager.Instance.state != GameManager.GameState.INWAVE){
+            OnDisable();
+            return;
+        }
+        OnEnable();
         UpdateMovement();
         UpdateCamera();
         UpdateAnimator();
@@ -114,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimator()
     {
         anim.SetFloat("forward", moveInput.y);
-        anim.SetFloat("right", moveInput.x);
+        //anim.SetFloat("right", moveInput.x);
         anim.SetFloat("up", controller.velocity.y);
         anim.SetBool("grounded", controller.isGrounded);
 

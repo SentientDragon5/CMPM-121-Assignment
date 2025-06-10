@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
+    bool logOnce = false;
 
     void Start()
     {
@@ -16,9 +17,12 @@ public class EnemyMovement : MonoBehaviour
     {
         if (agent.navMeshOwner)
         {
-
             agent.SetDestination(GameManager.Instance.player.transform.position);
         }
-        else Debug.LogWarning("No navmesh owner");
+        else if (!logOnce)
+        {
+            Debug.LogWarning("No navmesh owner");
+            logOnce = true;
+        }
     }
 }
