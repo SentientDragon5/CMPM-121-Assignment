@@ -35,6 +35,7 @@ public class EnemyMovement : MonoBehaviour
     // called by enemy controller.
     public void OnFire()
     {
+        if (!anim) return;
         int randomAttack = Random.Range(1, numberOfAttackAnimations);
         anim.CrossFade("Attack" + randomAttack.ToString(), 0.1f);
     }
