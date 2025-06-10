@@ -56,6 +56,7 @@ public class EnemySpawner : MonoBehaviour
         // this is not nice: we should not have to be required to tell the player directly that the level is starting
         GameManager.Instance.player.GetComponent<PlayerController>().StartLevel();
         level = DataLoader.Instance.FindLevelIndex(levelname);
+        MusicManager.Instance.PlayMusicForDifficulty(levelname);
         StartCoroutine(SpawnWave());
     }
 
