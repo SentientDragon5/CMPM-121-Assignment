@@ -111,10 +111,9 @@ public class PlayerController : MonoBehaviour
 
     public UnityEvent onDropSpell = new();
     public UnityEvent onTakeSpell = new();
-    public bool CanCarryMoreSpells { get => spellcaster.equippedSpells.Count < 4; }
+    public bool CanCarryMoreSpells { get {return spellcaster.equippedSpells.Count < 4;} }
     void RefreshSpellUI()
     {
-
         var spells = spellcaster.equippedSpells;
         int i = 0;
         for (i = 0; i < spells.Count; i++)
@@ -141,6 +140,7 @@ public class PlayerController : MonoBehaviour
     }
     public void ClaimReward()
     {
+        
         if (CanCarryMoreSpells)
             AddSpell(reward);
         onTakeSpell.Invoke();

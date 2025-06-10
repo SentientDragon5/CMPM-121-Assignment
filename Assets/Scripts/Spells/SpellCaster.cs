@@ -41,8 +41,8 @@ public class SpellCaster
         this.mana_reg = mana_reg;
         this.team = team;
         this.spellPower = 10;
-        equippedSpells = new List<Spell>();
-        activeSpellIndex = 0;
+        this.equippedSpells = new List<Spell>();
+        this.activeSpellIndex = 0;
     }
 
     public void SetSpellPower(int power)
