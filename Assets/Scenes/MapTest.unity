@@ -33213,7 +33213,7 @@ MonoBehaviour:
   onTakeRelic:
     m_PersistentCalls:
       m_Calls: []
-  relicsUI: {fileID: 0}
+  relicsUI: {fileID: 1202924362}
 --- !u!143 &1727641378
 CharacterController:
   m_ObjectHideFlags: 0
