@@ -7,7 +7,7 @@ public class HomingProjectileMovement : ProjectileMovement
     public HomingProjectileMovement(float speed) : base(speed)
     {
         // turnRate in degrees per second, convert to radians per second
-        turn_rate = 90f * Mathf.Deg2Rad;
+        turn_rate = 120f * Mathf.Deg2Rad;
     }
 
     public override void Movement(Transform transform, Vector3 unusedDirection)
