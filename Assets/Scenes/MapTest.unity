@@ -2815,7 +2815,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718273952}
+      - m_Target: {fileID: 1727641377}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: TookRelic
         m_Mode: 3
@@ -5492,7 +5492,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 169699797}
         m_TargetAssemblyTypeName: EnemySpawner, Assembly-CSharp
         m_MethodName: NextWave
         m_Mode: 1
@@ -7367,7 +7367,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718273952}
+      - m_Target: {fileID: 1727641377}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: ClaimReward
         m_Mode: 1
@@ -8673,7 +8673,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718273952}
+      - m_Target: {fileID: 1727641377}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: DropSpell
         m_Mode: 3
@@ -11440,7 +11440,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718273952}
+      - m_Target: {fileID: 1727641377}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: DropSpell
         m_Mode: 3
@@ -13059,7 +13059,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718273952}
+      - m_Target: {fileID: 1727641377}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: DropSpell
         m_Mode: 3
@@ -21091,7 +21091,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718273952}
+      - m_Target: {fileID: 1727641377}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: TookRelic
         m_Mode: 3
@@ -28855,7 +28855,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718273952}
+      - m_Target: {fileID: 1727641377}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: DropSpell
         m_Mode: 3
@@ -30140,7 +30140,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718273952}
+      - m_Target: {fileID: 1727641377}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: TookRelic
         m_Mode: 3
