@@ -7,12 +7,12 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent agent;
     bool logOnce = false;
     public int numberOfAttackAnimations = 1;
-    private Animator anim;
+    public Animator anim;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         
-        if (TryGetComponent(out anim))
+        if (anim)
             anim.SetLayerWeight(1, 0f);//Set full body layer to zero so that only arms and legs move.
     }
 
