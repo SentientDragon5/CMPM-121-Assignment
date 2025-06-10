@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
         unit = GetComponent<Unit>();
+
+        anim.SetLayerWeight(1, 0f);//Set full body layer to zero so that only arms and legs move.
     }
 
     private void OnEnable()
@@ -114,17 +116,17 @@ public class PlayerMovement : MonoBehaviour
     private void OnFire()
     {
         Debug.Log("Attack Spell!");
-        anim.CrossFade("Cast1", 0.1f);
+        int randomAttack = Random.Range(1, 2);
+        anim.CrossFade("Attack" + randomAttack.ToString(), 0.1f);
         GetComponent<PlayerController>().OnAttack(null);
     }
 
+    public float moveAnimSmoothTime = 10f;
     private void UpdateAnimator()
     {
-        anim.SetFloat("forward", moveInput.y);
+        anim.SetFloat("forward", Mathf.Lerp(anim.GetFloat("forward"), moveInput.magnitude, Time.deltaTime * moveAnimSmoothTime));
         //anim.SetFloat("right", moveInput.x);
         anim.SetFloat("up", controller.velocity.y);
         anim.SetBool("grounded", controller.isGrounded);
-
-        
     }
 }

@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour
             last_attack = Time.time;
             Debug.Assert(target.gameObject.GetComponent<PlayerController>() != null);
             Debug.Assert(target.gameObject.GetComponent<PlayerController>().hp != null);
-
+            if (TryGetComponent(out EnemyMovement m)) m.OnFire();
             target.gameObject.GetComponent<PlayerController>().hp.Damage(new Damage(damage, Damage.Type.PHYSICAL));
         }
     }
