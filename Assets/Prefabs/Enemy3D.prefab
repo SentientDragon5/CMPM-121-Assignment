@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2871671836614272834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8208445148836819976}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8208445148836819976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871671836614272834}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6442400213062748907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3856483241425340074
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 8872344470552593455}
+  scale: 0
 --- !u!1 &7517347975137839975
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +359,7 @@ Transform:
   m_Children:
   - {fileID: 552449803143995845}
   - {fileID: 5258994285457503053}
+  - {fileID: 8208445148836819976}
   - {fileID: 6998983787457069293}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -356,6 +389,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399c9e4011cba3e4c829138ef2eedbda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myController: {fileID: 9100000, guid: 2b4fea87d76ece847b99b75bb2758f45, type: 2}
+  sprite: {fileID: 7517347975137839975}
+  model: {fileID: 0}
+  modelRoot: {fileID: 6442400213062748907}
   target: {fileID: 0}
   speed: 0
   damage: 0
@@ -401,6 +438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046273824e941d045a83d2f471860589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfAttackAnimations: 1
+  anim: {fileID: 0}
 --- !u!136 &7581343317206036326
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -480,6 +519,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 8829d4459788ee442ab6c4ccf5d69833, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 879dafc667e0ec249b2282cb2b10d7f1, type: 3}
     - target: {fileID: 5866666021909216657, guid: 8829d4459788ee442ab6c4ccf5d69833, type: 3}
       propertyPath: m_Controller
       value: 

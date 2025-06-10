@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class EnemySpriteManager : IconManager
 {
-
+    [SerializeField]
+    public GameObject[] models;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,5 +14,11 @@ public class EnemySpriteManager : IconManager
     void Update()
     {
 
+    }
+
+    public GameObject GetModel(int index)
+    {
+        // Debug.Log($"Getting Model index: {index}");
+        return models[index];
     }
 }

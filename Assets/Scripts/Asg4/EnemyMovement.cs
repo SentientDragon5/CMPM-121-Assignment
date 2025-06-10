@@ -11,9 +11,6 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        
-        if (anim)
-            anim.SetLayerWeight(1, 0f);//Set full body layer to zero so that only arms and legs move.
     }
 
 
@@ -39,7 +36,11 @@ public class EnemyMovement : MonoBehaviour
         int randomAttack = Random.Range(1, numberOfAttackAnimations);
         anim.CrossFade("Attack" + randomAttack.ToString(), 0.1f);
     }
-
+    public void SetAnimator(Animator animator)
+    {
+        anim = animator;
+        anim.SetLayerWeight(1, 0f); //Set full body layer to zero so that only arms and legs move.
+    }
     private void UpdateAnimator()
     {
         if (!anim) return;
