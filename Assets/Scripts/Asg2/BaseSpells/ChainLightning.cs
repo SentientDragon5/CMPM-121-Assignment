@@ -28,9 +28,9 @@ public class ChainLightning : Spell
             (hit, pos) => OnInitialHit(hit, pos),
             lifetime,
             GetSize(),
-            GetDamageType(),  
-            GetName(),        
-            GetAppliedModifiers()  
+            GetDamageType(),
+            GetName(),
+            GetAppliedModifiers()
         );
 
         yield return new WaitForEndOfFrame();
@@ -115,21 +115,24 @@ public class ChainLightning : Spell
 
     private void CreateLightningEffect(Vector3 start, Vector3 end)
     {
-        // Create a line renderer for the lightning effect
-        GameObject lineObj = new GameObject("ChainLightning");
-        LineRenderer line = lineObj.AddComponent<LineRenderer>();
-        line.startWidth = 0.1f;
-        line.endWidth = 0.1f;
-        line.positionCount = 2;
-        line.SetPosition(0, start);
-        line.SetPosition(1, end);
+        if (start != null && end != null)
+        {
+            // Create a line renderer for the lightning effect
+            GameObject lineObj = new GameObject("ChainLightning");
+            LineRenderer line = lineObj.AddComponent<LineRenderer>();
+            line.startWidth = 0.1f;
+            line.endWidth = 0.1f;
+            line.positionCount = 2;
+            line.SetPosition(0, start);
+            line.SetPosition(1, end);
 
-        // Basic lightning material (white/blue)
-        line.material = new Material(Shader.Find("Sprites/Default"));
-        line.material.color = new Color(0.6f, 0.8f, 1.0f);
+            // Basic lightning material (white/blue)
+            line.material = new Material(Shader.Find("Sprites/Default"));
+            line.material.color = new Color(0.6f, 0.8f, 1.0f);
 
-        // Destroy after a short time
-        GameObject.Destroy(lineObj, 0.3f);
+            // Destroy after a short time
+            GameObject.Destroy(lineObj, 0.3f);
+        }
     }
 
     public override void SetAttributesFromJson(JObject jObject)

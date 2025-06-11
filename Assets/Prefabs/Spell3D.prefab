@@ -213,7 +213,6 @@ GameObject:
   - component: {fileID: 3145549229290292554}
   - component: {fileID: 9032423249103464616}
   - component: {fileID: 4980158676503248466}
-  - component: {fileID: 1697477352558412569}
   - component: {fileID: 8216765955375708816}
   m_Layer: 0
   m_Name: Spell3D
@@ -286,20 +285,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &1697477352558412569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6724547093369037702}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b7c83e532cb3f4bab5d3384ef3b20f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
-  lifetime: 0
 --- !u!114 &8216765955375708816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,3 +302,7 @@ MonoBehaviour:
   projectileRenderer: {fileID: 8597089279590919665}
   visualContainer: {fileID: 0}
   trailRenderer: {fileID: 4154791885531123443}
+  trailMaterial: {fileID: 0}
+  trailColorStart: {r: 0, g: 0, b: 0, a: 0}
+  trailColorEnd: {r: 0, g: 0, b: 0, a: 0}
+  trailWidth: 0.3
