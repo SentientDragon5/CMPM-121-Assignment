@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using TMPro;
+using System;
 
 public class HealthBar : MonoBehaviour
 {
@@ -7,6 +9,8 @@ public class HealthBar : MonoBehaviour
 
     public Hittable hp;
     public float scale;
+    public TextMeshProUGUI text;
+    public TextMeshPro textAlt;
     float old_perc;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +27,10 @@ public class HealthBar : MonoBehaviour
         {
             slider.transform.localScale = new Vector3(perc, 1, 1);
             slider.transform.localPosition = new Vector3(-(1 - perc) * scale / 2, 0, 0);
+            if (text != null)
+                text.text = "<color=\"white\">"+Convert.ToString(hp.hp);
+            else if (textAlt != null)
+                textAlt.text = "<color=\"white\">"+Convert.ToString(hp.hp);
             old_perc = perc;
         }
     }
