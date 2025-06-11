@@ -79,8 +79,8 @@ public class PlayerController : MonoBehaviour
         // Add new spells here
         SpellBuilder spellBuilder = new SpellBuilder();
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_bolt", spellcaster));
-        spellcaster.AddSpell(spellBuilder.BuildSpell("chain_lightning", spellcaster));
-        spellcaster.AddSpell(spellBuilder.BuildSpell("frost_shard", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_spray", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
 
         // testing modifiers here
 
@@ -91,12 +91,12 @@ public class PlayerController : MonoBehaviour
         // Spell slugBolt = new FreezeModifier(arcaneBolt, spellcaster);
         // spellcaster.AddSpell(slugBolt);
 
-        // Spell magicMissile = spellBuilder.BuildSpell("magic_missile", spellcaster);
-        // Spell wavyMissile = new RicochetModifier(magicMissile, spellcaster);
-        // spellcaster.AddSpell(wavyMissile);
+        // Spell magicMissile = spellBuilder.BuildSpell("arcane_blast", spellcaster);
+        // Spell freezeMissile = new RapidModifier(magicMissile, spellcaster);
+        // spellcaster.AddSpell(freezeMissile);
 
-        // Spell arcaneSpray = spellBuilder.BuildSpell("arcane_spray", spellcaster);
-        // Spell freezeSpray = new FreezeModifier(arcaneSpray, spellcaster);
+        // Spell arcaneSpray = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
+        // Spell freezeSpray = new SlugModifier(arcaneSpray, spellcaster);
         // spellcaster.AddSpell(freezeSpray);
 
         healthui.SetHealth(hp);

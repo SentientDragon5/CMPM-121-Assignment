@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+
 
 public class DamageMagnifier : ModifierSpell
 {
@@ -21,6 +23,13 @@ public class DamageMagnifier : ModifierSpell
         base.InitializeAttributes();
         attributes.name = "Amplified";
         attributes.description = "Increases damage but costs more mana.";
+    }
+
+    public override string[] GetAppliedModifiers()
+    {
+        var baseModifiers = baseSpell.GetAppliedModifiers();
+        var currentModifiers = appliedModifiers.ToArray();
+        return baseModifiers.Concat(currentModifiers).Distinct().ToArray();
     }
 
     protected override void ApplyModifiers()

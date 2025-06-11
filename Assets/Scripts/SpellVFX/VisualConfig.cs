@@ -20,7 +20,7 @@ public class VisualConfig
     
     [Header("VFX Settings")]
     public GameObject impactVFX;
-    public GameObject persistentVFX; 
+    public GameObject persistentVFX; //currently unsed
     
     [Header("Audio")]
     public AudioClip launchSound;

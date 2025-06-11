@@ -90,7 +90,7 @@ public abstract class Spell
             appliedModifiers.Add(modifierName);
         }
     }
-    
+
     public virtual List<string> GetModifiersList()
     {
         return new List<string>(appliedModifiers);
@@ -100,6 +100,9 @@ public abstract class Spell
     {
         this.team = team;
         last_cast = Time.time;
+
+        // Spawn muzzle flash at player position
+        SpawnMuzzleFlash(spawnPos, GetAppliedModifiers());
 
         GameManager.Instance.projectileManager.CreateProjectile(
             attributes.projectileSprite,
@@ -246,6 +249,53 @@ public abstract class Spell
         {
             if (float.TryParse(jObject["spray"].ToString(), out float spray))
                 attributes.spray = spray;
+        }
+    }
+    
+    protected void SpawnMuzzleFlash(Vector3 playerPosition, string[] modifiers)
+    {
+        Debug.Log($"SpawnMuzzleFlash called with {modifiers?.Length ?? 0} modifiers");
+        
+        if (modifiers == null) 
+        {
+            Debug.Log("No modifiers to process");
+            return;
+        }
+        
+        foreach (string modifier in modifiers)
+        {
+            Debug.Log($"Processing modifier: {modifier}");
+            switch (modifier.ToLower())
+            {
+                case "rapid":
+                    Debug.Log("Rapid modifier detected!");
+                    if (SpellVisualManager.Instance.rapidFireVFX != null)
+                    {
+                        Debug.Log("Spawning rapid fire VFX");
+                        GameObject rapidFlash = Object.Instantiate(SpellVisualManager.Instance.rapidFireVFX, playerPosition, Quaternion.identity);
+                        Object.Destroy(rapidFlash, 1f);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("rapidFireVFX is null!");
+                    }
+                    break;
+                    
+                case "damage_amp":
+                case "slug":
+                    Debug.Log($"{modifier} modifier detected!");
+                    if (SpellVisualManager.Instance.muzzleFlashVFX != null)
+                    {
+                        Debug.Log("Spawning muzzle flash VFX");
+                        GameObject muzzleFlash = Object.Instantiate(SpellVisualManager.Instance.muzzleFlashVFX, playerPosition, Quaternion.identity);
+                        Object.Destroy(muzzleFlash, 1f);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("muzzleFlashVFX is null!");
+                    }
+                    break;
+            }
         }
     }
 

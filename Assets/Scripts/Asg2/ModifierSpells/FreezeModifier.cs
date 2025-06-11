@@ -56,12 +56,12 @@ public class FreezeModifier : ModifierSpell
 
     private IEnumerator CastArcaneSprayWithFreeze(Vector3 where, Vector3 target, Hittable.Team team)
     {
-        // Copy ArcaneSpray logic but with freeze effect
-        Vector3 direction = (target - where).normalized;
+        Vector3 direction = target;  
         var spellAttributes = GetBaseSpellAttributes();
         int numProjectiles = spellAttributes.GetFinalNumProjectiles();
 
         float sprayAngle = spellAttributes.spray.HasValue ? spellAttributes.spray.Value * 360f : 30f;
+
         float baseAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         float startAngle = baseAngle - (sprayAngle / 2);
         float angleIncrement = sprayAngle / (numProjectiles - 1);
@@ -69,11 +69,9 @@ public class FreezeModifier : ModifierSpell
         for (int i = 0; i < numProjectiles; i++)
         {
             float angle = startAngle + (angleIncrement * i);
-            Vector3 projectileDirection = new Vector3(
-                Mathf.Cos(angle * Mathf.Deg2Rad),
-                Mathf.Sin(angle * Mathf.Deg2Rad),
-                0f
-            );
+
+            Quaternion rotation = Quaternion.AngleAxis(angle - baseAngle, Vector3.up);
+            Vector3 projectileDirection = rotation * direction.normalized;
 
             float lifetime = spellAttributes.lifetime.HasValue ? spellAttributes.lifetime.Value : 0.5f;
 
@@ -81,11 +79,14 @@ public class FreezeModifier : ModifierSpell
                 spellAttributes.projectileSprite,
                 GetTrajectory(),
                 where,
-                projectileDirection,
+                projectileDirection, 
                 GetSpeed(),
-                OnFreezeHit, 
-                lifetime,
-                GetSize()
+                OnFreezeHit,
+                lifetime, // local var
+                GetSize(),
+                GetDamageType(),              
+                GetName(),                  
+                GetAppliedModifiers()    
             );
 
             yield return new WaitForSeconds(0.02f);
@@ -94,22 +95,25 @@ public class FreezeModifier : ModifierSpell
 
     private IEnumerator CastSimpleSpellWithFreeze(Vector3 where, Vector3 target, Hittable.Team team)
     {
-        Vector3 direction = target - where;
+        Vector3 direction = target;
 
         GameManager.Instance.projectileManager.CreateProjectile(
-            GetIcon(),
+            attributes.projectileSprite,  
             GetTrajectory(),
             where,
             direction,
             GetSpeed(),
             OnFreezeHit,
             lifetime,
-            GetSize()
+            GetSize(),
+            GetDamageType(),              
+            GetName(),                  
+            GetAppliedModifiers()         
         );
 
         yield return new WaitForEndOfFrame();
     }
-
+    
     private void OnFreezeHit(Hittable other, Vector3 impact)
     {
         if (other.team != team)
@@ -123,6 +127,13 @@ public class FreezeModifier : ModifierSpell
             if (enemyController != null)
             {
                 enemyController.ApplySlow(2f, 0.3f);
+
+                if (SpellVisualManager.Instance.freezeStatusVFX != null)
+                {
+                    GameObject freezeEffect = Object.Instantiate(SpellVisualManager.Instance.freezeStatusVFX, enemyController.transform);
+
+                    Object.Destroy(freezeEffect, 2f);
+                }
             }
         }
     }

@@ -9,10 +9,12 @@ public class SpellVisualManager : MonoBehaviour
     public VisualConfig defaultConfig;
     
     [Header("Modifier Overlays")]
-    public Material honingOverlayMaterial;
-    public GameObject chaosTrailVFX;
+    public GameObject muzzleFlashVFX;
     public GameObject rapidFireVFX;
-    public Material hugeSizeMaterial;
+
+
+    [Header("Status Effect VFX")]
+    public GameObject freezeStatusVFX;
     
     private static SpellVisualManager _instance;
     public static SpellVisualManager Instance => _instance;
@@ -29,7 +31,7 @@ public class SpellVisualManager : MonoBehaviour
     
     public VisualConfig GetVisualConfig(string damageType, string spellName = "")
     {
-        Debug.Log($"GetVisualConfig called with damageType: '{damageType}', spellName: '{spellName}'");
+        //Debug.Log($"GetVisualConfig called with damageType: '{damageType}', spellName: '{spellName}'");
         
         // Handle special spell cases first
         if (spellName.ToLower().Contains("chain"))
@@ -47,7 +49,7 @@ public class SpellVisualManager : MonoBehaviour
             _ => defaultConfig
         };
         
-        Debug.Log($"Returning config: {(config != null ? "Found" : "NULL")} for damage type: {damageType}");
+        //Debug.Log($"Returning config: {(config != null ? "Found" : "NULL")} for damage type: {damageType}");
         return config;
     }
 }

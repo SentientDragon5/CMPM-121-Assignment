@@ -86,7 +86,7 @@ public class EnhancedProjectileController : MonoBehaviour
             // Apply modifier overlays
             if (isModified && modifiers != null)
             {
-                ApplyModifierVisuals(modifiers);
+                //ApplyModifierVisuals(modifiers);
             }
         }
     }
@@ -133,45 +133,45 @@ public class EnhancedProjectileController : MonoBehaviour
         }
     }
 
-    private void ApplyModifierVisuals(string[] modifiers)
-    {
-        foreach (string modifier in modifiers)
-        {
-            switch (modifier.ToLower())
-            {
-                case "homing":
-                    if (SpellVisualManager.Instance.honingOverlayMaterial != null)
-                    {
-                        // Add glow effect for homing
-                        var glowRenderer = gameObject.AddComponent<Renderer>();
-                        glowRenderer.material = SpellVisualManager.Instance.honingOverlayMaterial;
-                    }
-                    break;
+    // private void ApplyModifierVisuals(string[] modifiers)
+    // {
+    //     foreach (string modifier in modifiers)
+    //     {
+    //         switch (modifier.ToLower())
+    //         {
+    //             case "homing":
+    //                 if (SpellVisualManager.Instance.honingOverlayMaterial != null)
+    //                 {
+    //                     // Add glow effect for homing
+    //                     var glowRenderer = gameObject.AddComponent<Renderer>();
+    //                     glowRenderer.material = SpellVisualManager.Instance.honingOverlayMaterial;
+    //                 }
+    //                 break;
                     
-                case "chaos":
-                case "chaotic":
-                    if (SpellVisualManager.Instance.chaosTrailVFX != null)
-                    {
-                        Instantiate(SpellVisualManager.Instance.chaosTrailVFX, transform);
-                    }
-                    break;
+    //             case "chaos":
+    //             case "chaotic":
+    //                 if (SpellVisualManager.Instance.chaosTrailVFX != null)
+    //                 {
+    //                     Instantiate(SpellVisualManager.Instance.chaosTrailVFX, transform);
+    //                 }
+    //                 break;
                     
-                case "rapid":
-                    if (SpellVisualManager.Instance.rapidFireVFX != null)
-                    {
-                        Instantiate(SpellVisualManager.Instance.rapidFireVFX, transform);
-                    }
-                    break;
+    //             case "rapid":
+    //                 if (SpellVisualManager.Instance.rapidFireVFX != null)
+    //                 {
+    //                     Instantiate(SpellVisualManager.Instance.rapidFireVFX, transform);
+    //                 }
+    //                 break;
                     
-                case "huge":
-                    if (SpellVisualManager.Instance.hugeSizeMaterial != null && projectileRenderer != null)
-                    {
-                        projectileRenderer.material = SpellVisualManager.Instance.hugeSizeMaterial;
-                    }
-                    break;
-            }
-        }
-    }
+    //             case "huge":
+    //                 if (SpellVisualManager.Instance.hugeSizeMaterial != null && projectileRenderer != null)
+    //                 {
+    //                     projectileRenderer.material = SpellVisualManager.Instance.hugeSizeMaterial;
+    //                 }
+    //                 break;
+    //         }
+    //     }
+    // }
     
     private void HandleVisualAnimations()
     {
