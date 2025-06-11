@@ -25,9 +25,12 @@ public class FrostShard : Spell
             where,
             direction,
             GetSpeed(),
-            OnFrostHit,
+            OnFrostHit,  
             lifetime,
-            GetSize()
+            GetSize(),
+            GetDamageType(),
+            GetName(),      
+            GetAppliedModifiers() 
         );
 
         yield return new WaitForEndOfFrame();

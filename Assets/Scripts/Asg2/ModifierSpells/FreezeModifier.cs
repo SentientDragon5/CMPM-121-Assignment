@@ -11,6 +11,7 @@ public class FreezeModifier : ModifierSpell
 
     public FreezeModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("freeze");
     }
 
     protected override void InitializeAttributes()

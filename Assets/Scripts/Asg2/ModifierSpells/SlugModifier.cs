@@ -11,6 +11,7 @@ public class SlugModifier : ModifierSpell
 
     public SlugModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("slug");
     }
 
     protected override void InitializeAttributes()

@@ -10,6 +10,7 @@ public class ChaosModifier : ModifierSpell
 
     public ChaosModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("chaos");
     }
 
     protected override void InitializeAttributes()

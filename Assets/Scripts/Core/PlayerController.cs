@@ -79,8 +79,8 @@ public class PlayerController : MonoBehaviour
         // Add new spells here
         SpellBuilder spellBuilder = new SpellBuilder();
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_bolt", spellcaster));
-        spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
-        spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_spray", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("chain_lightning", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("frost_shard", spellcaster));
 
         // testing modifiers here
 

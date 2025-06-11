@@ -27,7 +27,10 @@ public class ArcaneBlast : Spell
             GetSpeed(),
             OnBlastHit,
             lifetime,
-            GetSize()
+            GetSize(),
+            GetDamageType(),  
+            GetName(),        
+            GetAppliedModifiers()
         );
 
         yield return new WaitForEndOfFrame();
@@ -96,7 +99,10 @@ public class ArcaneBlast : Spell
                 speed,
                 OnSecondaryHit,
                 lifetime,
-                GetSize()
+                GetSize(),
+                GetDamageType(), 
+                "Secondary " + GetName(),  
+                GetAppliedModifiers()  
             );
         }
     }

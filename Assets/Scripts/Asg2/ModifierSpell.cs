@@ -12,8 +12,20 @@ public abstract class ModifierSpell : Spell
     public ModifierSpell(Spell baseSpell, SpellCaster owner) : base(owner)
     {
         this.baseSpell = baseSpell;
+        
+        // Copy modifiers from base spell using the public method
+        var baseModifiers = baseSpell.GetModifiersList();
+        if (baseModifiers != null)
+        {
+            appliedModifiers.AddRange(baseModifiers);
+        }
+        
         InitializeAttributes();
         ApplyModifiers();
+    }
+    public override string GetDamageType()
+    {
+        return baseSpell.GetDamageType();
     }
 
     protected override void InitializeAttributes()

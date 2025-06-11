@@ -8083,6 +8083,134 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 403549643}
   m_Mesh: {fileID: -1674268716328342803, guid: 38b797ba6cc77df40a51cd3200365644, type: 3}
+--- !u!1 &406709734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406709736}
+  - component: {fileID: 406709735}
+  m_Layer: 0
+  m_Name: SpellVisualManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &406709735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406709734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5901132fe736aeb4daa880cbe8c38b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcaneConfig:
+    material: {fileID: 2100000, guid: b120a608075f9234880ab6e4fb1d3cd1, type: 2}
+    primaryColor: {r: 0.6, g: 0.4, b: 1, a: 1}
+    secondaryColor: {r: 0.8, g: 0.6, b: 1, a: 1}
+    emissionIntensity: 1
+    trailMaterial: {fileID: 2100000, guid: 2e93a2ec62e75e347b0bbb3d0b38e238, type: 2}
+    trailColorStart: {r: 1, g: 0.08962262, b: 0.8906346, a: 1}
+    trailColorEnd: {r: 1, g: 0.09019608, b: 0.89019614, a: 0.14901961}
+    trailStartWidth: 0.3
+    trailEndWidth: 0.1
+    trailTime: 0.5
+    impactVFX: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
+    persistentVFX: {fileID: 0}
+    launchSound: {fileID: 0}
+    impactSound: {fileID: 0}
+    rotateProjectile: 1
+    rotationSpeed: {x: 0, y: 0, z: 0}
+    pulseScale: 1
+    pulseSpeed: 2
+    pulseIntensity: 0.1
+  iceConfig:
+    material: {fileID: 2100000, guid: decb127fe967bf741adbebb7cf025c6d, type: 2}
+    primaryColor: {r: 0.4, g: 0.8, b: 1, a: 1}
+    secondaryColor: {r: 0.8, g: 1, b: 1, a: 1}
+    emissionIntensity: 0.5
+    trailMaterial: {fileID: 2100000, guid: 19670571c237d6542bc79a5d69cc75c1, type: 2}
+    trailColorStart: {r: 0.33490568, g: 1, b: 0.9999998, a: 1}
+    trailColorEnd: {r: 0.33333334, g: 1, b: 1, a: 0.3764706}
+    trailStartWidth: 0.3
+    trailEndWidth: 0.1
+    trailTime: 0.5
+    impactVFX: {fileID: 4924508274929071776, guid: 0edef91621bb6b34384ccc9dbb98729c, type: 3}
+    persistentVFX: {fileID: 0}
+    launchSound: {fileID: 0}
+    impactSound: {fileID: 0}
+    rotateProjectile: 0
+    rotationSpeed: {x: 0, y: 0, z: 0}
+    pulseScale: 0
+    pulseSpeed: 2
+    pulseIntensity: 0.1
+  lightningConfig:
+    material: {fileID: 2100000, guid: e052fac23eeed8743b0cec055e31d00a, type: 2}
+    primaryColor: {r: 1, g: 1, b: 0, a: 1}
+    secondaryColor: {r: 1, g: 1, b: 1, a: 1}
+    emissionIntensity: 1
+    trailMaterial: {fileID: 2100000, guid: 4b05f90ec8cda684ab13164f57daddb6, type: 2}
+    trailColorStart: {r: 1, g: 0.963035, b: 0.24056602, a: 1}
+    trailColorEnd: {r: 0.24056602, g: 0.68922174, b: 1, a: 0.6039216}
+    trailStartWidth: 0.3
+    trailEndWidth: 0.1
+    trailTime: 0.5
+    impactVFX: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
+    persistentVFX: {fileID: 0}
+    launchSound: {fileID: 0}
+    impactSound: {fileID: 0}
+    rotateProjectile: 0
+    rotationSpeed: {x: 0, y: 0, z: 0}
+    pulseScale: 0
+    pulseSpeed: 2
+    pulseIntensity: 0.1
+  defaultConfig:
+    material: {fileID: 0}
+    primaryColor: {r: 1, g: 1, b: 1, a: 1}
+    secondaryColor: {r: 1, g: 1, b: 1, a: 1}
+    emissionIntensity: 1
+    trailMaterial: {fileID: 0}
+    trailColorStart: {r: 1, g: 1, b: 1, a: 1}
+    trailColorEnd: {r: 1, g: 1, b: 1, a: 1}
+    trailStartWidth: 0.3
+    trailEndWidth: 0.1
+    trailTime: 0.5
+    impactVFX: {fileID: 0}
+    persistentVFX: {fileID: 0}
+    launchSound: {fileID: 0}
+    impactSound: {fileID: 0}
+    rotateProjectile: 0
+    rotationSpeed: {x: 0, y: 0, z: 0}
+    pulseScale: 0
+    pulseSpeed: 2
+    pulseIntensity: 0.1
+  honingOverlayMaterial: {fileID: 0}
+  chaosTrailVFX: {fileID: 0}
+  rapidFireVFX: {fileID: 0}
+  hugeSizeMaterial: {fileID: 0}
+--- !u!4 &406709736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406709734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -114.30685, y: -26.99201, z: 43.421383}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &413324659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20246,6 +20374,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1989160591}
     m_Modifications:
+    - target: {fileID: 10733892350326633, guid: 2af38c48c074460478a0bc224a963e66, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10733893288085155, guid: 2af38c48c074460478a0bc224a963e66, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10733893949940310, guid: 2af38c48c074460478a0bc224a963e66, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10733894005093068, guid: 2af38c48c074460478a0bc224a963e66, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8299116099382200984, guid: 2af38c48c074460478a0bc224a963e66, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2
@@ -90984,6 +91128,7 @@ SceneRoots:
   - {fileID: 220180078}
   - {fileID: 947241246}
   - {fileID: 856041117}
+  - {fileID: 406709736}
   - {fileID: 1758106810}
   - {fileID: 1543334316}
   - {fileID: 494929466}

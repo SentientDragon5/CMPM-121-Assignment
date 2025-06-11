@@ -46,7 +46,10 @@ public class ArcaneSpray : Spell
                 GetSpeed(),
                 OnHit,
                 lifetime,//local var
-                GetSize()
+                GetSize(),
+                GetDamageType(),  
+                GetName(),        
+                GetAppliedModifiers()
             );
 
             yield return new WaitForSeconds(0.02f);

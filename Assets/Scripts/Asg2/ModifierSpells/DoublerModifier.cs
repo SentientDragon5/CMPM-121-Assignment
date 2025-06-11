@@ -12,6 +12,7 @@ public class DoublerModifier : ModifierSpell
 
     public DoublerModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("doubler");
     }
 
     protected override void InitializeAttributes()

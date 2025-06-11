@@ -12,6 +12,8 @@ public class DamageMagnifier : ModifierSpell
 
     public DamageMagnifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("damage_amp");
+
     }
 
     protected override void InitializeAttributes()

@@ -13,6 +13,9 @@ public abstract class Spell
     // default lifetime. overriden in other spells.
     public float lifetime = 20f;
 
+    protected List<string> appliedModifiers = new List<string>();
+
+
     public Spell(SpellCaster owner)
     {
         this.owner = owner;
@@ -69,10 +72,35 @@ public abstract class Spell
     {
         return (last_cast + GetCooldown() < Time.time);
     }
+
+    public virtual string GetDamageType()
+    {
+        return attributes.damageType ?? "arcane";
+    }
+
+    public virtual string[] GetAppliedModifiers()
+    {
+        return appliedModifiers.ToArray();
+    }
+
+    public virtual void AddModifier(string modifierName)
+    {
+        if (!appliedModifiers.Contains(modifierName))
+        {
+            appliedModifiers.Add(modifierName);
+        }
+    }
+    
+    public virtual List<string> GetModifiersList()
+    {
+        return new List<string>(appliedModifiers);
+    }
+
     public virtual IEnumerator Cast(Vector3 spawnPos, Vector3 direction, Hittable.Team team)
     {
         this.team = team;
         last_cast = Time.time;
+
         GameManager.Instance.projectileManager.CreateProjectile(
             attributes.projectileSprite,
             GetTrajectory(),
@@ -81,7 +109,12 @@ public abstract class Spell
             GetSpeed(),
             OnHit,
             lifetime,
-            GetSize());
+            GetSize(),
+            GetDamageType(),
+            GetName(),
+            GetAppliedModifiers()
+        );
+
         yield return new WaitForEndOfFrame();
     }
 

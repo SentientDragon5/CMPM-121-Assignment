@@ -27,7 +27,10 @@ public class ChainLightning : Spell
             GetSpeed(),
             (hit, pos) => OnInitialHit(hit, pos),
             lifetime,
-            GetSize()
+            GetSize(),
+            GetDamageType(),  
+            GetName(),        
+            GetAppliedModifiers()  
         );
 
         yield return new WaitForEndOfFrame();

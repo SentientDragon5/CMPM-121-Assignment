@@ -13,6 +13,7 @@ public class RapidModifier : ModifierSpell
 
     public RapidModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("rapid");
     }
 
     protected override void InitializeAttributes()
