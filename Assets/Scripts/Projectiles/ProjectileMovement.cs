@@ -9,7 +9,7 @@ public class ProjectileMovement
         this.speed = speed;
     }
 
-    public virtual void Movement(Transform transform)
+    public virtual void Movement(Transform transform, Vector3 direction)
     {
 
     }

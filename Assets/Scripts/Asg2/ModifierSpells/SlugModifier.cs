@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+
 
 public class SlugModifier : ModifierSpell
 {
@@ -11,6 +13,7 @@ public class SlugModifier : ModifierSpell
 
     public SlugModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("slug");
     }
 
     protected override void InitializeAttributes()
@@ -18,6 +21,13 @@ public class SlugModifier : ModifierSpell
         base.InitializeAttributes();
         attributes.name = "Slug";
         attributes.description = "Significantly increased damage, but projectile speed is reduced by 60%.";
+    }
+
+    public override string[] GetAppliedModifiers()
+    {
+        var baseModifiers = baseSpell.GetAppliedModifiers();
+        var currentModifiers = appliedModifiers.ToArray();
+        return baseModifiers.Concat(currentModifiers).Distinct().ToArray();
     }
 
     protected override void ApplyModifiers()

@@ -13,6 +13,9 @@ public abstract class Spell
     // default lifetime. overriden in other spells.
     public float lifetime = 20f;
 
+    protected List<string> appliedModifiers = new List<string>();
+
+
     public Spell(SpellCaster owner)
     {
         this.owner = owner;
@@ -69,19 +72,52 @@ public abstract class Spell
     {
         return (last_cast + GetCooldown() < Time.time);
     }
-    public virtual IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+
+    public virtual string GetDamageType()
+    {
+        return attributes.damageType ?? "arcane";
+    }
+
+    public virtual string[] GetAppliedModifiers()
+    {
+        return appliedModifiers.ToArray();
+    }
+
+    public virtual void AddModifier(string modifierName)
+    {
+        if (!appliedModifiers.Contains(modifierName))
+        {
+            appliedModifiers.Add(modifierName);
+        }
+    }
+
+    public virtual List<string> GetModifiersList()
+    {
+        return new List<string>(appliedModifiers);
+    }
+
+    public virtual IEnumerator Cast(Vector3 spawnPos, Vector3 direction, Hittable.Team team)
     {
         this.team = team;
         last_cast = Time.time;
+
+        // Spawn muzzle flash at player position
+        SpawnMuzzleFlash(spawnPos, GetAppliedModifiers());
+
         GameManager.Instance.projectileManager.CreateProjectile(
             attributes.projectileSprite,
             GetTrajectory(),
-            where,
-            target - where,
+            spawnPos,
+            direction,
             GetSpeed(),
             OnHit,
             lifetime,
-            GetSize());
+            GetSize(),
+            GetDamageType(),
+            GetName(),
+            GetAppliedModifiers()
+        );
+
         yield return new WaitForEndOfFrame();
     }
 
@@ -213,6 +249,53 @@ public abstract class Spell
         {
             if (float.TryParse(jObject["spray"].ToString(), out float spray))
                 attributes.spray = spray;
+        }
+    }
+    
+    protected void SpawnMuzzleFlash(Vector3 playerPosition, string[] modifiers)
+    {
+        Debug.Log($"SpawnMuzzleFlash called with {modifiers?.Length ?? 0} modifiers");
+        
+        if (modifiers == null) 
+        {
+            Debug.Log("No modifiers to process");
+            return;
+        }
+        
+        foreach (string modifier in modifiers)
+        {
+            Debug.Log($"Processing modifier: {modifier}");
+            switch (modifier.ToLower())
+            {
+                case "rapid":
+                    Debug.Log("Rapid modifier detected!");
+                    if (SpellVisualManager.Instance.rapidFireVFX != null)
+                    {
+                        Debug.Log("Spawning rapid fire VFX");
+                        GameObject rapidFlash = Object.Instantiate(SpellVisualManager.Instance.rapidFireVFX, playerPosition, Quaternion.identity);
+                        Object.Destroy(rapidFlash, 1f);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("rapidFireVFX is null!");
+                    }
+                    break;
+                    
+                case "damage_amp":
+                case "slug":
+                    Debug.Log($"{modifier} modifier detected!");
+                    if (SpellVisualManager.Instance.muzzleFlashVFX != null)
+                    {
+                        Debug.Log("Spawning muzzle flash VFX");
+                        GameObject muzzleFlash = Object.Instantiate(SpellVisualManager.Instance.muzzleFlashVFX, playerPosition, Quaternion.identity);
+                        Object.Destroy(muzzleFlash, 1f);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("muzzleFlashVFX is null!");
+                    }
+                    break;
+            }
         }
     }
 

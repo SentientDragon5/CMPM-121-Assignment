@@ -9,6 +9,7 @@ public class WavyModifier : ModifierSpell
 
     public WavyModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("wavy");
     }
 
     protected override void InitializeAttributes()

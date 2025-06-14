@@ -10,6 +10,7 @@ public class HugeModifier : ModifierSpell
 
     public HugeModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("huge");
     }
 
     protected override void InitializeAttributes()

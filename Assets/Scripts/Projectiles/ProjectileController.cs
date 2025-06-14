@@ -4,6 +4,7 @@ using System.Collections;
 
 public class ProjectileController : MonoBehaviour
 {
+    public Vector3 direction;
     public float lifetime;
     public event Action<Hittable, Vector3> OnHit;
     public ProjectileMovement movement;
@@ -11,17 +12,17 @@ public class ProjectileController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        print("CREATED");
     }
 
     // Update is called once per frame
     void Update()
     {
-        movement.Movement(transform);
+        movement.Movement(transform, direction.normalized);
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("projectile")) return;
 

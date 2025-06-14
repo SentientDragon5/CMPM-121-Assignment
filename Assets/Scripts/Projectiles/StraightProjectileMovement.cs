@@ -7,8 +7,8 @@ public class StraightProjectileMovement : ProjectileMovement
 
     }
 
-    public override void Movement(Transform transform)
+    public override void Movement(Transform transform, Vector3 direction)
     {
-        transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0), Space.Self);
+        transform.GetComponent<Rigidbody>().MovePosition(transform.position + direction * speed * Time.deltaTime);
     }
 }

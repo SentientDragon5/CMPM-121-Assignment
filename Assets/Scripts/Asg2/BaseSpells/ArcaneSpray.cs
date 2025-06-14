@@ -13,12 +13,11 @@ public class ArcaneSpray : Spell
         attributes = new SpellAttributes();
     }
 
-    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+    public override IEnumerator Cast(Vector3 spawnPos, Vector3 direction, Hittable.Team team)
     {
         this.team = team;
         last_cast = Time.time;
 
-        Vector3 direction = (target - where).normalized;
         int numProjectiles = attributes.GetFinalNumProjectiles();
 
         // spray angle (default to 30 degrees)
@@ -32,26 +31,27 @@ public class ArcaneSpray : Spell
         for (int i = 0; i < numProjectiles; i++)
         {
             float angle = startAngle + (angleIncrement * i);
-            Vector3 projectileDirection = new Vector3(
-                Mathf.Cos(angle * Mathf.Deg2Rad),
-                Mathf.Sin(angle * Mathf.Deg2Rad),
-                0f
-            );
+
+            // Spray around Y-axis (horizontal spread)
+            Quaternion rotation = Quaternion.AngleAxis(angle - baseAngle, Vector3.up);
+            Vector3 projectileDirection = rotation * direction.normalized;
 
             float lifetime = attributes.lifetime.HasValue ? attributes.lifetime.Value : 0.5f;
 
             GameManager.Instance.projectileManager.CreateProjectile(
                 attributes.projectileSprite,
                 GetTrajectory(),
-                where,
-                projectileDirection,
+                spawnPos,
+                projectileDirection, // Corrected direction
                 GetSpeed(),
                 OnHit,
                 lifetime,//local var
-                GetSize()
+                GetSize(),
+                GetDamageType(),  
+                GetName(),        
+                GetAppliedModifiers()
             );
 
-            // Small delay between projectiles for a more natural spray effect
             yield return new WaitForSeconds(0.02f);
         }
     }

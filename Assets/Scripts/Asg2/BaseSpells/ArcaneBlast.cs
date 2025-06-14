@@ -14,22 +14,23 @@ public class ArcaneBlast : Spell
         attributes = new SpellAttributes();
     }
 
-    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+    public override IEnumerator Cast(Vector3 spawnPos, Vector3 direction, Hittable.Team team)
     {
         this.team = team;
         last_cast = Time.time;
 
-        Vector3 direction = target - where;
-
         GameManager.Instance.projectileManager.CreateProjectile(
             attributes.projectileSprite,
             GetTrajectory(),
-            where,
+            spawnPos,
             direction,
             GetSpeed(),
             OnBlastHit,
             lifetime,
-            GetSize()
+            GetSize(),
+            GetDamageType(),  
+            GetName(),        
+            GetAppliedModifiers()
         );
 
         yield return new WaitForEndOfFrame();
@@ -55,39 +56,20 @@ public class ArcaneBlast : Spell
     {
         int numProjectiles = attributes.GetFinalNumProjectiles();
         float angleStep = 360f / numProjectiles;
-
-        // Get the secondary projectile attributes
-        JObject projectileObj = null;
-        if (attributes.GetType().GetField("jObject", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?.GetValue(this) is JObject jObj)
-        {
-            if (jObj["secondary_projectile"] != null)
-                projectileObj = jObj["secondary_projectile"] as JObject;
-        }
-
-        // Default secondary projectile values
+        
         float speed = 20f;
-        float lifetime = 0.1f;
+        float lifetime = 1.0f;
         int sprite = attributes.projectileSprite;
 
-        if (projectileObj != null)
-        {
-            if (projectileObj["speed"] != null && float.TryParse(projectileObj["speed"].ToString(), out float s))
-                speed = s;
-
-            if (projectileObj["lifetime"] != null && float.TryParse(projectileObj["lifetime"].ToString(), out float lt))
-                lifetime = lt;
-
-            if (projectileObj["sprite"] != null)
-                sprite = projectileObj["sprite"].Value<int>();
-        }
-
+        // Create projectiles in a circle around the impact point
         for (int i = 0; i < numProjectiles; i++)
         {
-            float angle = i * angleStep;
+            float angle = i * angleStep * Mathf.Deg2Rad;
+            
             Vector3 direction = new Vector3(
-                Mathf.Cos(angle * Mathf.Deg2Rad),
-                Mathf.Sin(angle * Mathf.Deg2Rad),
-                0f
+                Mathf.Cos(angle),
+                0f,
+                Mathf.Sin(angle)
             );
 
             GameManager.Instance.projectileManager.CreateProjectile(
@@ -98,7 +80,10 @@ public class ArcaneBlast : Spell
                 speed,
                 OnSecondaryHit,
                 lifetime,
-                GetSize()
+                GetSize(),
+                GetDamageType(), 
+                "Secondary " + GetName(),  
+                GetAppliedModifiers()  
             );
         }
     }

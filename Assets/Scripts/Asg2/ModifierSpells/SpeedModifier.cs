@@ -10,6 +10,7 @@ public class SpeedModifier : ModifierSpell
 
     public SpeedModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("speed_amp");
     }
 
     protected override void InitializeAttributes()

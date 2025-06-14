@@ -11,6 +11,7 @@ public class HomingModifier : ModifierSpell
 
     public HomingModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("homing");
     }
 
     protected override void InitializeAttributes()

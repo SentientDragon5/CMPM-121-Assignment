@@ -9,6 +9,7 @@ public class RicochetModifier : ModifierSpell
 
     public RicochetModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("ricochet");
     }
 
     protected override void InitializeAttributes()

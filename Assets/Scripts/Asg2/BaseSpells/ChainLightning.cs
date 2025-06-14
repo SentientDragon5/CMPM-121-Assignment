@@ -14,7 +14,7 @@ public class ChainLightning : Spell
         attributes = new SpellAttributes();
     }
 
-    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+    public override IEnumerator Cast(Vector3 spawnPos, Vector3 direction, Hittable.Team team)
     {
         this.team = team;
         last_cast = Time.time;
@@ -22,12 +22,15 @@ public class ChainLightning : Spell
         GameManager.Instance.projectileManager.CreateProjectile(
             attributes.projectileSprite,
             GetTrajectory(),
-            where,
-            target - where,
+            spawnPos,
+            direction,
             GetSpeed(),
             (hit, pos) => OnInitialHit(hit, pos),
             lifetime,
-            GetSize()
+            GetSize(),
+            GetDamageType(),
+            GetName(),
+            GetAppliedModifiers()
         );
 
         yield return new WaitForEndOfFrame();
@@ -112,21 +115,24 @@ public class ChainLightning : Spell
 
     private void CreateLightningEffect(Vector3 start, Vector3 end)
     {
-        // Create a line renderer for the lightning effect
-        GameObject lineObj = new GameObject("ChainLightning");
-        LineRenderer line = lineObj.AddComponent<LineRenderer>();
-        line.startWidth = 0.1f;
-        line.endWidth = 0.1f;
-        line.positionCount = 2;
-        line.SetPosition(0, start);
-        line.SetPosition(1, end);
+        if (start != null && end != null)
+        {
+            // Create a line renderer for the lightning effect
+            GameObject lineObj = new GameObject("ChainLightning");
+            LineRenderer line = lineObj.AddComponent<LineRenderer>();
+            line.startWidth = 0.1f;
+            line.endWidth = 0.1f;
+            line.positionCount = 2;
+            line.SetPosition(0, start);
+            line.SetPosition(1, end);
 
-        // Basic lightning material (white/blue)
-        line.material = new Material(Shader.Find("Sprites/Default"));
-        line.material.color = new Color(0.6f, 0.8f, 1.0f);
+            // Basic lightning material (white/blue)
+            line.material = new Material(Shader.Find("Sprites/Default"));
+            line.material.color = new Color(0.6f, 0.8f, 1.0f);
 
-        // Destroy after a short time
-        GameObject.Destroy(lineObj, 0.3f);
+            // Destroy after a short time
+            GameObject.Destroy(lineObj, 0.3f);
+        }
     }
 
     public override void SetAttributesFromJson(JObject jObject)

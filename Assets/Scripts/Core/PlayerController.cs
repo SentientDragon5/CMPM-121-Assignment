@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
+    public PlayerMovement playerMovement;
     public Hittable hp;
     public HealthBar healthui;
     public ManaBar manaui;
@@ -58,13 +59,16 @@ public class PlayerController : MonoBehaviour
     //async Task Start()
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         unit = GetComponent<Unit>();
         GameManager.Instance.player = gameObject;
         GameManager.Instance.onNextWave.AddListener(OnNextWave);
+        playerMovement.enabled = false;
     }
 
     public void StartLevel()
     {
+        playerMovement.enabled = true;
         spellcaster = new SpellCaster(125, 8, Hittable.Team.PLAYER);
         StartCoroutine(spellcaster.ManaRegeneration());
 
@@ -75,8 +79,8 @@ public class PlayerController : MonoBehaviour
         // Add new spells here
         SpellBuilder spellBuilder = new SpellBuilder();
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_bolt", spellcaster));
-        spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
         spellcaster.AddSpell(spellBuilder.BuildSpell("arcane_spray", spellcaster));
+        spellcaster.AddSpell(spellBuilder.BuildSpell("magic_missile", spellcaster));
 
         // testing modifiers here
 
@@ -87,12 +91,12 @@ public class PlayerController : MonoBehaviour
         // Spell slugBolt = new FreezeModifier(arcaneBolt, spellcaster);
         // spellcaster.AddSpell(slugBolt);
 
-        // Spell magicMissile = spellBuilder.BuildSpell("magic_missile", spellcaster);
-        // Spell wavyMissile = new RicochetModifier(magicMissile, spellcaster);
-        // spellcaster.AddSpell(wavyMissile);
+        // Spell magicMissile = spellBuilder.BuildSpell("arcane_blast", spellcaster);
+        // Spell freezeMissile = new RapidModifier(magicMissile, spellcaster);
+        // spellcaster.AddSpell(freezeMissile);
 
-        // Spell arcaneSpray = spellBuilder.BuildSpell("arcane_spray", spellcaster);
-        // Spell freezeSpray = new FreezeModifier(arcaneSpray, spellcaster);
+        // Spell arcaneSpray = spellBuilder.BuildSpell("arcane_bolt", spellcaster);
+        // Spell freezeSpray = new SlugModifier(arcaneSpray, spellcaster);
         // spellcaster.AddSpell(freezeSpray);
 
         healthui.SetHealth(hp);
@@ -107,10 +111,9 @@ public class PlayerController : MonoBehaviour
 
     public UnityEvent onDropSpell = new();
     public UnityEvent onTakeSpell = new();
-    public bool CanCarryMoreSpells { get => spellcaster.equippedSpells.Count < 4; }
+    public bool CanCarryMoreSpells { get {return spellcaster.equippedSpells.Count < 4;} }
     void RefreshSpellUI()
     {
-
         var spells = spellcaster.equippedSpells;
         int i = 0;
         for (i = 0; i < spells.Count; i++)
@@ -137,6 +140,7 @@ public class PlayerController : MonoBehaviour
     }
     public void ClaimReward()
     {
+        
         if (CanCarryMoreSpells)
             AddSpell(reward);
         onTakeSpell.Invoke();
@@ -229,18 +233,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnAttack(InputValue value)
+    public void OnAttack(InputValue value)
     {
         if (GameManager.Instance.state == GameManager.GameState.PREGAME ||
         GameManager.Instance.state == GameManager.GameState.GAMEOVER ||
         GameManager.Instance.state == GameManager.GameState.VICTORY) return;
         Vector2 mouseScreen = Mouse.current.position.value;
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
-        mouseWorld.z = 0;
-        StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
+        //Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
+        //mouseWorld.z = 0;
+        //StartCoroutine(spellcaster.Cast(transform.position, mouseWorld));
+        // Change this to come from the hand and go torward camera forward.
+
+        // print("OnAttack " + Camera.main.gameObject.name);
+        Vector3 spawnPos = transform.position + Vector3.up;
+        Vector3 direction = Camera.main.transform.forward;// * 100 - spawnPos;// hubris.
+        direction.Normalize();
+        Debug.DrawRay(spawnPos, direction);
+        StartCoroutine(spellcaster.Cast(spawnPos, direction));
     }
 
-    void OnMove(InputValue value)
+    public void OnMove(InputValue value)
     {
         if (GameManager.Instance.state == GameManager.GameState.PREGAME ||
         GameManager.Instance.state == GameManager.GameState.GAMEOVER ||

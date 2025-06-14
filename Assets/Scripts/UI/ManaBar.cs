@@ -5,11 +5,12 @@ public class ManaBar : MonoBehaviour
     public GameObject slider;
 
     public SpellCaster sc;
+    public float scale;
     float old_perc;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        scale = (scale <= 0)? 1 : scale;
     }
 
     // Update is called once per frame
@@ -20,7 +21,7 @@ public class ManaBar : MonoBehaviour
         if (Mathf.Abs(old_perc - perc) > 0.01f)
         {
             slider.transform.localScale = new Vector3(perc, 1, 1);
-            slider.transform.localPosition = new Vector3(-(1 - perc) / 2, 0, 0);
+            slider.transform.localPosition = new Vector3(-(1 - perc) * scale / 2, 0, 0);
             old_perc = perc;
         }
     }

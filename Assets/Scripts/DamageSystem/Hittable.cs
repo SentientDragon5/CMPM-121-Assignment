@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 
+//[System.Serializable]
 public class Hittable
 {
 

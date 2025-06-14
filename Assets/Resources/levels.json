@@ -173,11 +173,8 @@
        "name": "Debug",
        "spawns": [
             {
-                "enemy": "slate", 
-                "count": "wave 2 / 0 *",
-                "hp": "base 100 wave * +",
-                "delay": "3",
-                "sequence": [2],
+                "enemy": "great slime", 
+                "count": "25",
                 "location": "random"
             }
 

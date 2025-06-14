@@ -41,8 +41,8 @@ public class SpellCaster
         this.mana_reg = mana_reg;
         this.team = team;
         this.spellPower = 10;
-        equippedSpells = new List<Spell>();
-        activeSpellIndex = 0;
+        this.equippedSpells = new List<Spell>();
+        this.activeSpellIndex = 0;
     }
 
     public void SetSpellPower(int power)
@@ -93,12 +93,13 @@ public class SpellCaster
         }
     }
 
-    public IEnumerator Cast(Vector3 where, Vector3 target)
+    public IEnumerator Cast(Vector3 spawnPos, Vector3 direction)
     {
+        Debug.Log("Casted");
         if (activeSpell != null && mana >= activeSpell.GetManaCost() && activeSpell.IsReady())
         {
             mana -= activeSpell.GetManaCost();
-            yield return activeSpell.Cast(where, target, team);
+            yield return activeSpell.Cast(spawnPos, direction, team);
         }
         onCastSpell.Invoke();
         yield break;

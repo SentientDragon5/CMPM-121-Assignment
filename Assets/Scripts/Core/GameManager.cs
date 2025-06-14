@@ -114,4 +114,6 @@ public class GameManager
         totalDamageDealt = 0;
         totalDamageTaken = 0;
     }
+
+    UnityEvent onGameStart = new();
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 public class RapidModifier : ModifierSpell
@@ -13,6 +14,7 @@ public class RapidModifier : ModifierSpell
 
     public RapidModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("rapid");
     }
 
     protected override void InitializeAttributes()
@@ -21,6 +23,14 @@ public class RapidModifier : ModifierSpell
         attributes.name = "Rapid";
         attributes.description = "Rapid Fire projectiles";
     }
+
+    public override string[] GetAppliedModifiers()
+    {
+        var baseModifiers = baseSpell.GetAppliedModifiers();
+        var currentModifiers = appliedModifiers.ToArray();
+        return baseModifiers.Concat(currentModifiers).Distinct().ToArray();
+    }
+
 
     protected override void ApplyModifiers()
     {

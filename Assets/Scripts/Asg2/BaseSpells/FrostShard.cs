@@ -14,12 +14,10 @@ public class FrostShard : Spell
         attributes = new SpellAttributes();
     }
 
-    public override IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
+    public override IEnumerator Cast(Vector3 where, Vector3 direction, Hittable.Team team)
     {
         this.team = team;
         last_cast = Time.time;
-
-        Vector3 direction = target - where;
 
         GameManager.Instance.projectileManager.CreateProjectile(
             attributes.projectileSprite,
@@ -27,9 +25,12 @@ public class FrostShard : Spell
             where,
             direction,
             GetSpeed(),
-            OnFrostHit,
+            OnFrostHit,  
             lifetime,
-            GetSize()
+            GetSize(),
+            GetDamageType(),
+            GetName(),      
+            GetAppliedModifiers() 
         );
 
         yield return new WaitForEndOfFrame();

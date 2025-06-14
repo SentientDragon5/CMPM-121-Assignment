@@ -11,6 +11,7 @@ public class SplitterModifier : ModifierSpell
 
     public SplitterModifier(Spell baseSpell, SpellCaster owner) : base(baseSpell, owner)
     {
+        AddModifier("splitter");
     }
 
     protected override void InitializeAttributes()
